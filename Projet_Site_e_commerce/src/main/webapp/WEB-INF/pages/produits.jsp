@@ -24,8 +24,8 @@
 		</c:forEach>
 	</table>
 	
-	<a href="${pageContext.request.contextPath}/site/ajouterProduit">Ajouter une catégorie</a>
-	<a href="${pageContext.request.contextPath}/site/supprimerProduit">Supprimer une catégorie</a>
-	<a href="${pageContext.request.contextPath}/site/modifierProduit">Modifier une catégorie</a>
+	<a href="${pageContext.request.contextPath}/site/ajouterProduit">Ajouter un produit</a>
+	<a href="${pageContext.request.contextPath}/site/supprimerProduit">Supprimer un produit</a>
+	<a href="${pageContext.request.contextPath}/site/modifierProduit">Modifier un produit</a>
 </body>
 </html>
