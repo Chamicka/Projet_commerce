@@ -2,11 +2,13 @@ package fr.adaming.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 
 @Repository
@@ -32,7 +34,9 @@ public class ProduitDaoImpl implements IProduitDao{
 
 	@Override
 	public Produit supprimerProduit(Produit p) {
-		// TODO Auto-generated method stub
+		Session s=sf.getCurrentSession();
+		Produit p_rec=(Produit) s.get(Produit.class, p.getId());
+		s.delete(p_rec);
 		return null;
 	}
 
@@ -51,8 +55,10 @@ public class ProduitDaoImpl implements IProduitDao{
 
 	@Override
 	public List<Produit> getAllProduits() {
-		// TODO Auto-generated method stub
-		return null;
+		Session s=sf.getCurrentSession();
+		String rec="from Produit";
+		Query query=s.createQuery(rec);
+		return query.list();
 	}
 
 }

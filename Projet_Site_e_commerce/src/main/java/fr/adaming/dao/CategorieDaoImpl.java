@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import fr.adaming.model.Categorie;
+import fr.adaming.model.Produit;
 
 @Repository
 public class CategorieDaoImpl implements ICategorieDao{
@@ -22,8 +23,9 @@ public class CategorieDaoImpl implements ICategorieDao{
 
 	@Override
 	public Categorie ajouterCategorie(Categorie c) {
-		// TODO Auto-generated method stub
-		return null;
+		Session s = sf.getCurrentSession();
+		s.save(c);
+		return c;
 	}
 
 	@Override
@@ -36,14 +38,15 @@ public class CategorieDaoImpl implements ICategorieDao{
 
 	@Override
 	public Categorie modifierCategorie(Categorie c) {
-		// TODO Auto-generated method stub
-		return null;
+		Session s = sf.getCurrentSession();
+		s.update(c);
+		return c;
 	}
 
 	@Override
 	public Categorie getCategorieById(Categorie c) {
-		// TODO Auto-generated method stub
-		return null;
+		Session s = sf.getCurrentSession();
+		return (Categorie) s.get(Categorie.class, c.getId());
 	}
 
 	@Override

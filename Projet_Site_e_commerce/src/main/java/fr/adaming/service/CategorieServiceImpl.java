@@ -22,8 +22,7 @@ public class CategorieServiceImpl implements ICategorieService{
 
 	@Override
 	public Categorie ajouterCategorie(Categorie c) {
-		// TODO Auto-generated method stub
-		return null;
+		return cDao.ajouterCategorie(c);
 	}
 
 	@Override
@@ -33,14 +32,12 @@ public class CategorieServiceImpl implements ICategorieService{
 
 	@Override
 	public Categorie modifierCategorie(Categorie c) {
-		// TODO Auto-generated method stub
-		return null;
+		return cDao.modifierCategorie(c);
 	}
 
 	@Override
 	public Categorie getCategorieById(Categorie c) {
-		// TODO Auto-generated method stub
-		return null;
+		return cDao.getCategorieById(c);
 	}
 
 	@Override
