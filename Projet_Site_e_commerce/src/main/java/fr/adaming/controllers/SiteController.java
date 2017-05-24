@@ -58,7 +58,7 @@ public class SiteController {
 
 		List<Produit> listeProd = pService.getAllProduits();
 		model.addAttribute("listeProds", listeProd);
-		return "accueil";
+		return "produits";
 	}
 
 	@RequestMapping(value = "/categories", method = RequestMethod.GET)
@@ -105,7 +105,7 @@ public class SiteController {
 	}
 	
 	//supprimer un produit/une catégorie
-	@RequestMapping(value="/supprimerProduit/{idP}")
+	@RequestMapping(value="/supprimerProduit/{idP}", method = RequestMethod.GET)
 	public String supprimerProduit(ModelMap model, @PathVariable("idP") long pId) {
 		pService.supprimerProduit(pService.getProduitById(pId));
 		model.addAttribute("listeProds", pService.getAllProduits());
@@ -126,7 +126,7 @@ public class SiteController {
 	@RequestMapping(value="/modifierProduit", method=RequestMethod.GET)
 	public ModelAndView modifierProduit(@RequestParam("idP") long pId) {
 		Produit p_rec = pService.getProduitById(pId);
-		return new ModelAndView("ajouterProduits", "mProduit", p_rec );
+		return new ModelAndView("ajouterProduit", "mProduit", p_rec );
 	}
 	
 	@RequestMapping(value="/modifierCategorie", method=RequestMethod.GET)
