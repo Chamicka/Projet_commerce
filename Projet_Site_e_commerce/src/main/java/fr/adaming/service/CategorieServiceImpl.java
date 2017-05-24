@@ -36,8 +36,8 @@ public class CategorieServiceImpl implements ICategorieService{
 	}
 
 	@Override
-	public Categorie getCategorieById(Categorie c) {
-		return cDao.getCategorieById(c);
+	public Categorie getCategorieById(int id) {
+		return cDao.getCategorieById(id);
 	}
 
 	@Override

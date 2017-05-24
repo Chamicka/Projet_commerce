@@ -9,7 +9,7 @@ public interface IProduitDao {
 	public Produit ajouterProduit(Produit p) ;
 	public Produit supprimerProduit(Produit p);
 	public Produit modifierProduit(Produit p);
-	public Produit getProduitById(Produit p);
+	public Produit getProduitById(int id);
 	public List<Produit> getAllProduits() ;
 	
 	
