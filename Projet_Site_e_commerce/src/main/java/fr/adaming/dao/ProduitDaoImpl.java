@@ -48,7 +48,7 @@ public class ProduitDaoImpl implements IProduitDao{
 	}
 
 	@Override
-	public Produit getProduitById(int id) {
+	public Produit getProduitById(long id) {
 		Session s = sf.getCurrentSession();
 		return (Produit) s.get(Produit.class, id);
 	}

@@ -9,6 +9,6 @@ public interface IProduitService {
 	public Produit ajouterProduit(Produit p) ;
 	public Produit supprimerProduit(Produit p);
 	public Produit modifierProduit(Produit p);
-	public Produit getProduitById(int id);
+	public Produit getProduitById(long id);
 	public List<Produit> getAllProduits() ;
 }

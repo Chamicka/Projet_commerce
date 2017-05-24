@@ -46,7 +46,8 @@ public class SiteController {
 	//Welcome
 	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
 	public String welcomePersonne(ModelMap model) {
-
+		List<Categorie> listeCat = cService.getAllCategories();
+		model.addAttribute("listeCats", listeCat);
 		return "accueil";
 	}
 
@@ -77,7 +78,7 @@ public class SiteController {
 	@RequestMapping(value="/insererProduit", method = RequestMethod.POST)
 	public String soumettreFormAjoutProduit(ModelMap model, @ModelAttribute("mProduit") Produit pProduit) {
 		
-		if (pProduit.getId() == 0){
+		if (pProduit.getId() == null){
 			pService.ajouterProduit(pProduit) ;
 		} else {
 			pService.modifierProduit(pProduit) ;
@@ -94,8 +95,7 @@ public class SiteController {
 	
 	@RequestMapping(value="/insererCategorie", method = RequestMethod.POST)
 	public String soumettreFormAjoutCategorie(ModelMap model, @ModelAttribute("mCategorie") Categorie pCategorie) {
-		
-		if (pCategorie.getId() == 0){
+		if (pCategorie.getId() == null){
 			cService.ajouterCategorie(pCategorie) ;
 		} else {
 			cService.modifierCategorie(pCategorie) ;
@@ -105,16 +105,17 @@ public class SiteController {
 	}
 	
 	//supprimer un produit/une catégorie
-	@RequestMapping(value="/supprimerProduit/${idP}")
-	public String supprimerProduit(ModelMap model, @PathVariable("idP") int pId) {
+	@RequestMapping(value="/supprimerProduit/{idP}")
+	public String supprimerProduit(ModelMap model, @PathVariable("idP") long pId) {
 		pService.supprimerProduit(pService.getProduitById(pId));
 		model.addAttribute("listeProds", pService.getAllProduits());
 		
 		return "produits" ;
 	}
 	
-	@RequestMapping(value="/supprimerCategorie/${idC}")
-	public String supprimerCategorie(ModelMap model, @PathVariable("idC") int cId) {
+	@RequestMapping(value="/supprimerCategorie/{idC}", method = RequestMethod.GET)
+	public String supprimerCategorie(ModelMap model, @PathVariable("idC") long cId) {
+		System.out.println("dans le controller suppr");
 		cService.supprimerCategorie(cService.getCategorieById(cId));
 		model.addAttribute("listeCats", cService.getAllCategories());
 		
@@ -123,15 +124,15 @@ public class SiteController {
 	
 	//modifier un produit/une catégorie
 	@RequestMapping(value="/modifierProduit", method=RequestMethod.GET)
-	public ModelAndView modifierProduit(@RequestParam("idP") int pId) {
+	public ModelAndView modifierProduit(@RequestParam("idP") long pId) {
 		Produit p_rec = pService.getProduitById(pId);
-		return new ModelAndView("produits", "mProduit", p_rec );
+		return new ModelAndView("ajouterProduits", "mProduit", p_rec );
 	}
 	
 	@RequestMapping(value="/modifierCategorie", method=RequestMethod.GET)
-	public ModelAndView modifierCategorie(@RequestParam("idC") int cId) {
+	public ModelAndView modifierCategorie(@RequestParam("idC") long cId) {
 		Categorie c_rec = cService.getCategorieById(cId);
-		return new ModelAndView("accueil", "mCategorie", c_rec );
+		return new ModelAndView("ajouterCategorie", "mCategorie", c_rec );
 	}
 	
 }
