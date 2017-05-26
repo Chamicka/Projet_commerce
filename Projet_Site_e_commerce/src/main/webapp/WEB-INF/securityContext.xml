@@ -25,8 +25,8 @@
 
 
 		<!-- Les url protégés et les autorisations -->
-		<security:intercept-url pattern="/personne/admin/**"
-			access="ROLE_ADMIN" />
+		<security:intercept-url pattern="/site/admin/**"
+			access="ROLE_ADMIN_PROD" />
 
 		<!-- utiliser un formulaire perso -->
 		<security:form-login login-page="/login"
@@ -51,8 +51,8 @@
 				de passe et roles -->
 			<security:jdbc-user-service
 				data-source-ref="dataSourceBean2"
-				users-by-username-query="select username,password,activated from users where username=?"
-				authorities-by-username-query="select u.username, r.rolename from users u, roles r where u.id_u=r.user_id and u.username=?" />
+				users-by-username-query="select username,password,activated from admins where username=?"
+				authorities-by-username-query="select a.username,r.rolename from admins a, roles r where a.id_a=r.admin_id and a.username=?" />
 
 		</security:authentication-provider>
 	</security:authentication-manager>

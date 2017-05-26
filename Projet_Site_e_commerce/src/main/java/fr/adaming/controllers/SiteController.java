@@ -48,12 +48,12 @@ public class SiteController {
 	public String welcomePersonne(ModelMap model) {
 		List<Categorie> listeCat = cService.getAllCategories();
 		model.addAttribute("listeCats", listeCat);
-		return "accueil";
+		return "accueilClient";
 	}
 
 	
 	//afficher les produits/catégories
-	@RequestMapping(value = "/produits", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/produits", method = RequestMethod.GET)
 	public String afficherListeProduits(ModelMap model) {
 
 		List<Produit> listeProd = pService.getAllProduits();
@@ -61,7 +61,7 @@ public class SiteController {
 		return "produits";
 	}
 
-	@RequestMapping(value = "/categories", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/categories", method = RequestMethod.GET)
 	public String afficherListeCategories(ModelMap model) {
 
 		List<Categorie> listeCat = cService.getAllCategories();
@@ -70,12 +70,12 @@ public class SiteController {
 	}
 	
 	//ajouter un produit
-	@RequestMapping(value="/ajouterProduit", method = RequestMethod.GET)
+	@RequestMapping(value="/admin/ajouterProduit", method = RequestMethod.GET)
 	public ModelAndView afficherFormAjoutProduit() {
 		return new ModelAndView("ajouterProduit", "mProduit", new Produit());
 	}
 	
-	@RequestMapping(value="/insererProduit", method = RequestMethod.POST)
+	@RequestMapping(value="/admin/insererProduit", method = RequestMethod.POST)
 	public String soumettreFormAjoutProduit(ModelMap model, @ModelAttribute("mProduit") Produit pProduit) {
 		
 		if (pProduit.getId() == null){
@@ -88,12 +88,12 @@ public class SiteController {
 	}
 	
 	//ajouter une catégorie
-	@RequestMapping(value="/ajouterCategorie", method = RequestMethod.GET)
+	@RequestMapping(value="/admin/ajouterCategorie", method = RequestMethod.GET)
 	public ModelAndView afficherFormAjoutCategorie() {
 		return new ModelAndView("ajouterCategorie", "mCategorie", new Categorie());
 	}
 	
-	@RequestMapping(value="/insererCategorie", method = RequestMethod.POST)
+	@RequestMapping(value="/admin/insererCategorie", method = RequestMethod.POST)
 	public String soumettreFormAjoutCategorie(ModelMap model, @ModelAttribute("mCategorie") Categorie pCategorie) {
 		if (pCategorie.getId() == null){
 			cService.ajouterCategorie(pCategorie) ;
@@ -105,7 +105,7 @@ public class SiteController {
 	}
 	
 	//supprimer un produit/une catégorie
-	@RequestMapping(value="/supprimerProduit/{idP}", method = RequestMethod.GET)
+	@RequestMapping(value="/admin/supprimerProduit/{idP}", method = RequestMethod.GET)
 	public String supprimerProduit(ModelMap model, @PathVariable("idP") long pId) {
 		pService.supprimerProduit(pService.getProduitById(pId));
 		model.addAttribute("listeProds", pService.getAllProduits());
@@ -113,7 +113,7 @@ public class SiteController {
 		return "produits" ;
 	}
 	
-	@RequestMapping(value="/supprimerCategorie/{idC}", method = RequestMethod.GET)
+	@RequestMapping(value="/admin/supprimerCategorie/{idC}", method = RequestMethod.GET)
 	public String supprimerCategorie(ModelMap model, @PathVariable("idC") long cId) {
 		System.out.println("dans le controller suppr");
 		cService.supprimerCategorie(cService.getCategorieById(cId));
@@ -123,16 +123,19 @@ public class SiteController {
 	}
 	
 	//modifier un produit/une catégorie
-	@RequestMapping(value="/modifierProduit", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/modifierProduit", method=RequestMethod.GET)
 	public ModelAndView modifierProduit(@RequestParam("idP") long pId) {
 		Produit p_rec = pService.getProduitById(pId);
 		return new ModelAndView("ajouterProduit", "mProduit", p_rec );
 	}
 	
-	@RequestMapping(value="/modifierCategorie", method=RequestMethod.GET)
+	@RequestMapping(value="/admin/modifierCategorie", method=RequestMethod.GET)
 	public ModelAndView modifierCategorie(@RequestParam("idC") long cId) {
 		Categorie c_rec = cService.getCategorieById(cId);
 		return new ModelAndView("ajouterCategorie", "mCategorie", c_rec );
 	}
+	
+	
+	
 	
 }
