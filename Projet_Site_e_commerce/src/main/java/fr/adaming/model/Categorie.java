@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Categorie implements Serializable {
 	private byte[] photo;
 	private String description;
 	
-	@OneToMany(mappedBy="categorie")
+	@OneToMany(mappedBy="categorie", cascade=CascadeType.ALL)
 	private List<Produit> listeProduits;
 	
 	public Categorie() {
