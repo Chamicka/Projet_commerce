@@ -19,16 +19,11 @@
 				<td>${produit.designation}</td>
 				<td>${produit.description}</td>
 				<td>${produit.prix}</td>
-				<td><a href="${pageContext.request.contextPath}/site/supprimerProduit/${produit.id}">Supprimer</a>  | <a href="${pageContext.request.contextPath}/site/modifierProduit?idP=${produit.id}"> Editer</a></td>
+				
 			</tr>
 		</c:forEach>
 	</table>
 	
-	<a href="${pageContext.request.contextPath}/site/ajouterProduit">Ajouter un produit</a>
-	<a href="${pageContext.request.contextPath}/site/supprimerProduit">Supprimer un produit</a>
-	<a href="${pageContext.request.contextPath}/site/modifierProduit">Modifier un produit</a>
-	
-	<br/>
-	<a href="<c:url value="/j_spring_security_logout"/>">Se deconnecter</a>
+
 </body>
 </html>
