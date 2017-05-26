@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -14,6 +15,7 @@ import fr.adaming.service.ICategorieService;
 import fr.adaming.service.IProduitService;
 
 @Controller
+@RequestMapping("/site")
 public class SiteControllerClient {
 
 	@Autowired
@@ -39,15 +41,15 @@ public class SiteControllerClient {
 
 		
 		//afficher les produits/catégories
-		@RequestMapping(value = "/produitsClient", method = RequestMethod.GET)
-		public String afficherListeProduits(ModelMap model) {
-
-			List<Produit> listeProd = pService.getAllProduits();
+		@RequestMapping(value = "/produitsClient/{idC}", method = RequestMethod.GET)
+		public String afficherListeProduits(ModelMap model, @PathVariable("idC") long cId) {
+			
+			List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(cId));
 			model.addAttribute("listeProds", listeProd);
 			return "produitsClient";
 		}
 
-		@RequestMapping(value = "/categoriesClient", method = RequestMethod.GET)
+		@RequestMapping(value = "/categoriesClient/", method = RequestMethod.GET)
 		public String afficherListeCategories(ModelMap model) {
 
 			List<Categorie> listeCat = cService.getAllCategories();

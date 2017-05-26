@@ -53,11 +53,13 @@ public class SiteController {
 
 	
 	//afficher les produits/catégories
-	@RequestMapping(value = "/admin/produits", method = RequestMethod.GET)
-	public String afficherListeProduits(ModelMap model) {
+	@RequestMapping(value = "/admin/produits/{idC}", method = RequestMethod.GET)
+	public String afficherListeProduits(ModelMap model, @PathVariable("idC") long cId) {
 
-		List<Produit> listeProd = pService.getAllProduits();
+		List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(cId));
 		model.addAttribute("listeProds", listeProd);
+		model.addAttribute("idCat", cId);
+		
 		return "produits";
 	}
 
@@ -71,7 +73,8 @@ public class SiteController {
 	
 	//ajouter un produit
 	@RequestMapping(value="/admin/ajouterProduit", method = RequestMethod.GET)
-	public ModelAndView afficherFormAjoutProduit() {
+	public ModelAndView afficherFormAjoutProduit(@RequestParam("idC") long cId) {
+		
 		return new ModelAndView("ajouterProduit", "mProduit", new Produit());
 	}
 	

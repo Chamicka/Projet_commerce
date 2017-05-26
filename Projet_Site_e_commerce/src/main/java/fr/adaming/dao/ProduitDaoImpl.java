@@ -61,4 +61,13 @@ public class ProduitDaoImpl implements IProduitDao{
 		return query.list();
 	}
 
+	@Override
+	public List<Produit> getAllProduitsByCat(Categorie c) {
+		Session s=sf.getCurrentSession();
+		String rec = "FROM Produit p WHERE p.categorie.id =:pIdC";
+		Query query = s.createQuery(rec);
+		query.setParameter("pIdC", c.getId());	
+		return query.list();
+	}
+
 }

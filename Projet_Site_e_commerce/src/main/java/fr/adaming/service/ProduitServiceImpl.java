@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import fr.adaming.dao.IProduitDao;
+import fr.adaming.model.Categorie;
 import fr.adaming.model.Produit;
 @Service
 @Transactional
@@ -45,6 +46,11 @@ public class ProduitServiceImpl implements IProduitService {
 	@Override
 	public List<Produit> getAllProduits() {
 		return pDao.getAllProduits();
+	}
+
+	@Override
+	public List<Produit> getAllProduitsByCat(Categorie c) {
+		return pDao.getAllProduitsByCat(c);
 	}
 
 }

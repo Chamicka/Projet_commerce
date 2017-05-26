@@ -17,11 +17,11 @@
 		</tr>
 		<c:forEach var="categorie" items="${listeCats}">
 			<tr>
-				<td><a href="${pageContext.request.contextPath}/site/produitsClients">${categorie.nom}</a></td>
+				<td><a href="${pageContext.request.contextPath}/site/produitsClient/${categorie.id}">${categorie.nom}</a></td>
 				
 			</tr>
 		</c:forEach>
 	</table>
-Admin: <a href="${pageContext.request.contextPath}/site/admin/catégories"> Se connecter </a>
+Admin: <a href="${pageContext.request.contextPath}/site/admin/categories"> Se connecter </a>
 </body>
 </html>
