@@ -75,7 +75,9 @@ public class SiteController {
 	@RequestMapping(value="/admin/ajouterProduit", method = RequestMethod.GET)
 	public ModelAndView afficherFormAjoutProduit(@RequestParam("idC") long cId) {
 		
-		return new ModelAndView("ajouterProduit", "mProduit", new Produit());
+		ModelAndView mav = new ModelAndView("ajouterProduit", "mProduit", new Produit());
+		mav.addObject("idCat", cId);
+		return mav ;
 	}
 	
 	@RequestMapping(value="/admin/insererProduit", method = RequestMethod.POST)
