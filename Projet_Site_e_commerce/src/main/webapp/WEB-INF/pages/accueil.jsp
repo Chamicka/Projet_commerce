@@ -24,8 +24,7 @@
 	</table>
 
 	<a href="${pageContext.request.contextPath}/site/admin/ajouterCategorie">Ajouter une catégorie</a>
-	<a href="${pageContext.request.contextPath}/site/admin/supprimerCategorie">Supprimer une catégorie</a>
-	<a href="${pageContext.request.contextPath}/site/admin/modifierCategorie">Modifier une catégorie</a>
+
 	<br/>
 	<a href="<c:url value="/j_spring_security_logout"/>">Se deconnecter</a>
 </body>
