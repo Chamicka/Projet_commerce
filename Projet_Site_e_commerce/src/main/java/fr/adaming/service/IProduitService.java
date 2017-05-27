@@ -13,4 +13,5 @@ public interface IProduitService {
 	public Produit getProduitById(long id);
 	public List<Produit> getAllProduits() ;
 	public List<Produit> getAllProduitsByCat(Categorie c);
+	public Produit ajouterAuPanier(long id_prod, long id_pan , int quantite);
 }

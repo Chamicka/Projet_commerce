@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="lignesCommandes")
-public class LigneCommande implements Serializable{
+public class LigneCommande implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -92,6 +92,8 @@ public class LigneCommande implements Serializable{
 		return "LigneCommande [id=" + id + ", quantite=" + quantite + ", prix=" + prix + "]";
 	}
 	
-	
-	
+	public void calculerPrix() {
+		int prix_calc = (int) (produit.getPrix() * quantite) ;
+		this.setPrix(prix_calc) ;
+	}
 }

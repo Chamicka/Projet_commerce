@@ -53,4 +53,9 @@ public class ProduitServiceImpl implements IProduitService {
 		return pDao.getAllProduitsByCat(c);
 	}
 
+	@Override
+	public Produit ajouterAuPanier(long id_prod, long id_pan , int quantite) {
+		return pDao.ajouterAuPanier(id, quantite);
+	}
+
 }

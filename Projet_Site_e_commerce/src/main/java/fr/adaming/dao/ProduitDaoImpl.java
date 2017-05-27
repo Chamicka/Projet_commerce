@@ -1,5 +1,6 @@
 package fr.adaming.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Query;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import fr.adaming.model.Categorie;
+import fr.adaming.model.LigneCommande;
+import fr.adaming.model.Panier;
 import fr.adaming.model.Produit;
 
 @Repository
@@ -68,6 +71,23 @@ public class ProduitDaoImpl implements IProduitDao{
 		Query query = s.createQuery(rec);
 		query.setParameter("pIdC", c.getId());	
 		return query.list();
+	}
+
+	@Override
+	public Produit ajouterAuPanier(long id_prod, Panier panier, int quantite) {
+		Session s=sf.getCurrentSession();
+		String rec = "FROM Produit p WHERE p.id=:pIdP" ;
+		Query query = s.createQuery(rec);
+		query.setParameter("pIdP", id_prod);
+		LigneCommande lc = new LigneCommande() ;
+		lc.setProduit((Produit) query.uniqueResult());
+		lc.setQuantite(quantite);
+		lc.calculerPrix();
+	    //?
+		List<LigneCommande> listeLignes = new ArrayList<LigneCommande>();
+		listeLignes.add(lc);
+		panier.setLignesCommande(listeLignes);
+		return (Produit) query.uniqueResult() ;
 	}
 
 }
