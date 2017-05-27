@@ -77,18 +77,19 @@ public class SiteController {
 		
 		ModelAndView mav = new ModelAndView("ajouterProduit", "mProduit", new Produit());
 		mav.addObject("idCat", cId);
+		mav.addObject("cat",cService.getCategorieById(cId));
 		return mav ;
 	}
 	
 	@RequestMapping(value="/admin/insererProduit", method = RequestMethod.POST)
-	public String soumettreFormAjoutProduit(ModelMap model, @ModelAttribute("mProduit") Produit pProduit) {
+	public String soumettreFormAjoutProduit(ModelMap model, @ModelAttribute("mProduit") Produit pProduit, @ModelAttribute("cat") Categorie cat) {
 		
 		if (pProduit.getId() == null){
 			pService.ajouterProduit(pProduit) ;
 		} else {
 			pService.modifierProduit(pProduit) ;
 		}
-		model.addAttribute("listeProds", pService.getAllProduits());
+		model.addAttribute("listeProds", pService.getAllProduitsByCat(cat));
 		return "produits" ;
 	}
 	
