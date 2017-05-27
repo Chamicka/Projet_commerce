@@ -24,7 +24,6 @@
 		</c:forEach>
 	</table>
 	
-	<a href="${pageContext.request.contextPath}/site/admin/categories">Accueil</a>
 	<a href="${pageContext.request.contextPath}/site/admin/ajouterProduit?idC=${idCat}">Ajouter un produit</a>
 	<a href="${pageContext.request.contextPath}/site/admin/supprimerProduit">Supprimer un produit</a>
 	<a href="${pageContext.request.contextPath}/site/admin/modifierProduit">Modifier un produit</a>
