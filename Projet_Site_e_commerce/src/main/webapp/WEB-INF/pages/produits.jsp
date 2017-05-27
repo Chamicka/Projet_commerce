@@ -19,7 +19,7 @@
 				<td>${produit.designation}</td>
 				<td>${produit.description}</td>
 				<td>${produit.prix}</td>
-				<td><a href="${pageContext.request.contextPath}/site/supprimerProduit/${produit.id}">Supprimer</a>  | <a href="${pageContext.request.contextPath}/site/modifierProduit?idP=${produit.id}"> Editer</a></td>
+				<td><a href="${pageContext.request.contextPath}/site/admin/supprimerProduit/${produit.id}">Supprimer</a>  | <a href="${pageContext.request.contextPath}/site/admin/modifierProduit?idP=${produit.id}&idC=${produit.categorie.id}"> Editer</a></td>
 			</tr>
 		</c:forEach>
 	</table>

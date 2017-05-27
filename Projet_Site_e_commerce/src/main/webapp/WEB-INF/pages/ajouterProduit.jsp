@@ -11,7 +11,7 @@
 <body>
 
 <h1>Formulaire d'ajout</h1>
-	<form:form action="insererProduit" method="POST" modelAttribute="mProduit">
+	<form:form action="insererProduit/${idCat}" method="POST" modelAttribute="mProduit">
 		<form:input type="hidden" path="id" />
 		<form:input type="hidden" path="categorie.id" value="${idCat}" />
 		<br />

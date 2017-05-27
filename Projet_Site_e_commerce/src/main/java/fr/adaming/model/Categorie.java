@@ -26,7 +26,7 @@ public class Categorie implements Serializable {
 	private byte[] photo;
 	private String description;
 	
-	@OneToMany(mappedBy="categorie", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="categorie", cascade=CascadeType.REMOVE)
 	private List<Produit> listeProduits;
 	
 	public Categorie() {

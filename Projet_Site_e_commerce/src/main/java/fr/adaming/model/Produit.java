@@ -30,7 +30,7 @@ public class Produit implements Serializable {
 	private String photo ;
 	
 	
-	@ManyToOne(cascade=CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name="categorie_id", referencedColumnName="id_ca")
 	private Categorie categorie ;
 

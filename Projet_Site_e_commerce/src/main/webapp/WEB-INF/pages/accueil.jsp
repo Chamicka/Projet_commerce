@@ -18,7 +18,7 @@
 		<c:forEach var="categorie" items="${listeCats}">
 			<tr>
 				<td><a href="${pageContext.request.contextPath}/site/admin/produits/${categorie.id}">${categorie.nom}</a></td>
-				<td><a href="${pageContext.request.contextPath}/site/admin/supprimerCategorie/${categorie.id}">Supprimer</a>  | <a href="${pageContext.request.contextPath}/site/modifierCategorie?idC=${categorie.id}"> Modifier</a></td>
+				<td><a href="${pageContext.request.contextPath}/site/admin/supprimerCategorie/${categorie.id}">Supprimer</a>  | <a href="${pageContext.request.contextPath}/site/admin/modifierCategorie?idC=${categorie.id}"> Modifier</a></td>
 			</tr>
 		</c:forEach>
 	</table>

@@ -77,19 +77,20 @@ public class SiteController {
 		
 		ModelAndView mav = new ModelAndView("ajouterProduit", "mProduit", new Produit());
 		mav.addObject("idCat", cId);
-		mav.addObject("cat",cService.getCategorieById(cId));
+		//mav.addObject("cat",cService.getCategorieById(cId));
 		return mav ;
 	}
 	
-	@RequestMapping(value="/admin/insererProduit", method = RequestMethod.POST)
-	public String soumettreFormAjoutProduit(ModelMap model, @ModelAttribute("mProduit") Produit pProduit, @ModelAttribute("cat") Categorie cat) {
+	@RequestMapping(value="/admin/insererProduit/{idC}", method = RequestMethod.POST)
+	public String soumettreFormAjoutProduit(ModelMap model, @ModelAttribute("mProduit") Produit pProduit, @PathVariable("idC") long cId) {
 		
 		if (pProduit.getId() == null){
 			pService.ajouterProduit(pProduit) ;
 		} else {
 			pService.modifierProduit(pProduit) ;
 		}
-		model.addAttribute("listeProds", pService.getAllProduitsByCat(cat));
+		model.addAttribute("listeProds", pService.getAllProduitsByCat(cService.getCategorieById(cId)));
+		model.addAttribute("idCat", cId);
 		return "produits" ;
 	}
 	
@@ -121,7 +122,6 @@ public class SiteController {
 	
 	@RequestMapping(value="/admin/supprimerCategorie/{idC}", method = RequestMethod.GET)
 	public String supprimerCategorie(ModelMap model, @PathVariable("idC") long cId) {
-		System.out.println("dans le controller suppr");
 		cService.supprimerCategorie(cService.getCategorieById(cId));
 		model.addAttribute("listeCats", cService.getAllCategories());
 		
@@ -130,9 +130,11 @@ public class SiteController {
 	
 	//modifier un produit/une catégorie
 	@RequestMapping(value="/admin/modifierProduit", method=RequestMethod.GET)
-	public ModelAndView modifierProduit(@RequestParam("idP") long pId) {
+	public ModelAndView modifierProduit(@RequestParam("idP") long pId, @RequestParam("idC") long cId) {
 		Produit p_rec = pService.getProduitById(pId);
-		return new ModelAndView("ajouterProduit", "mProduit", p_rec );
+		ModelAndView mav = new ModelAndView("ajouterProduit", "mProduit", p_rec );
+		mav.addObject("idCat", cId);
+		return mav ;
 	}
 	
 	@RequestMapping(value="/admin/modifierCategorie", method=RequestMethod.GET)
