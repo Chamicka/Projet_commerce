@@ -20,11 +20,12 @@ import fr.adaming.model.Categorie;
 import fr.adaming.model.Panier;
 import fr.adaming.model.Produit;
 import fr.adaming.service.ICategorieService;
+import fr.adaming.service.IPanierService;
 import fr.adaming.service.IProduitService;
 
 @Controller
 @RequestMapping("/site")
-@SessionAttributes(value="sPanier", types={Panier.class})
+@SessionAttributes(value = "sPanier", types = { Panier.class })
 public class SiteControllerClient {
 
 	@Autowired
@@ -49,35 +50,66 @@ public class SiteControllerClient {
 		this.cService = cService;
 	}
 
+	@Autowired
+	private IPanierService panService;
+
+	/**
+	 * @param panService
+	 *            the panService to set
+	 */
+	public void setPanService(IPanierService panService) {
+		this.panService = panService;
+	}
+
 	@ModelAttribute("sPanier")
 	public Panier getPanier(HttpSession session) {
-		
+
 		if (session.getAttribute("sPanier") == null) {
-			Panier panier = new Panier() ;
+			Panier panier = new Panier();
 			session.setAttribute("sPanier", panier);
-			return panier ;
+			return panier;
 		} else {
-			return (Panier) session.getAttribute("sPanier") ;
+			return (Panier) session.getAttribute("sPanier");
 		}
-		
+
 	}
 	
+	//Welcome
+		@RequestMapping(value = "/welcome", method = RequestMethod.GET)
+		public String welcomePersonne(ModelMap model, HttpSession session) {
+			
+			//attributs catégories
+			List<Categorie> listeCat = cService.getAllCategories();
+			model.addAttribute("listeCats", listeCat);
+			
+			// attributs panier
+			Panier panier = getPanier(session);
+			model.addAttribute("listeLignes", panier.getLignesCommande());
+			model.addAttribute("total", panService.calculerTotal(panier));
+		
+			return "accueilClient";
+		}
+
 	// afficher les produits/catégories
 	@RequestMapping(value = "/produitsClient/{idC}", method = RequestMethod.GET)
 	public String afficherListeProduits(ModelMap model, @PathVariable("idC") long cId, HttpSession session) {
 
+		// attributs catégorie
 		model.addAttribute("idCat", cId);
 		List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(cId));
 		model.addAttribute("listeProds", listeProd);
-		Panier panier = getPanier(session) ;
-		
-		
-//		if (model.get("mPanier") == null) {
-//			System.out.println("dans le if panier");
-//			Panier panier = new Panier();
-//			model.addAttribute("mPanier", panier);
-//			model.getClass();
-//		}
+
+		// attributs panier
+		Panier panier = getPanier(session);
+		model.addAttribute("listeLignes", panier.getLignesCommande());
+		model.addAttribute("total", panService.calculerTotal(panier));
+
+		// if (model.get("mPanier") == null) {
+		// System.out.println("dans le if panier");
+		// Panier panier = new Panier();
+		// model.addAttribute("mPanier", panier);
+		// model.getClass();
+		// }
 		return "produitsClient";
 	}
 
@@ -89,17 +121,25 @@ public class SiteControllerClient {
 		return "accueilClient";
 	}
 
-	//ajouter au panier
-	@RequestMapping(value="/ajouterPanier/{idP}/{idC}", method=RequestMethod.GET)
-	public String ajouterAuPanier(ModelMap model, @PathVariable("idP") long pId, @PathVariable("idC") long cId, HttpSession session) {
-		model.addAttribute("idCat", cId) ;
-		
-		Panier p_rec = pService.ajouterAuPanier(pId, getPanier(session), 8);
-		session.setAttribute("sPanier", p_rec);
-		
+	// ajouter au panier
+	@RequestMapping(value = "/ajouterPanier/{idP}/{idC}", method = RequestMethod.GET)
+	public String ajouterAuPanier(ModelMap model, @PathVariable("idP") long pId, @PathVariable("idC") long cId,
+			HttpSession session) {
+
+		// attributs catégorie
+		model.addAttribute("idCat", cId);
 		List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(cId));
 		model.addAttribute("listeProds", listeProd);
-		
-		return "produitsClient" ;
+
+		//ajouter au panier
+		Panier p_rec = pService.ajouterAuPanier(pId, getPanier(session), 8);
+		session.setAttribute("sPanier", p_rec);
+
+		// attributs panier
+		Panier panier = getPanier(session);
+		model.addAttribute("listeLignes", panier.getLignesCommande());
+		model.addAttribute("total", panService.calculerTotal(panier));
+
+		return "produitsClient";
 	}
 }

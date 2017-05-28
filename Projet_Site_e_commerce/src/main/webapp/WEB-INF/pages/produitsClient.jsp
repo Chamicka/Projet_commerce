@@ -24,7 +24,34 @@
 			</tr>
 		</c:forEach>
 	</table>
-	
+	<br /> 
+	<br/>
+	Panier
+	<table>
+		<tr>
+			<th>Produit</th>
+			<th>Quantite</th>
+			<th>Prix</th>
+			<th>Modifier</th>
+		</tr>
+		<c:forEach var="ligne" items="${listeLignes}">
+			<tr>
+				<td>${ligne.produit.designation}</td>
+				<td>${ligne.quantite}</td>
+				<td>${ligne.prix}</td>
+				<td></td>
+			</tr>
+		</c:forEach>
+	</table>
+	<br/>
+<table>
+	<tr>
+		<th>Total</th>
+	</tr>
+	<tr>
+		<td>${total}</td>
+	</tr>
+</table>
 
 </body>
 </html>

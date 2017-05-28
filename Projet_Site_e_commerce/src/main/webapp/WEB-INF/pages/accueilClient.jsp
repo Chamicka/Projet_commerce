@@ -17,13 +17,46 @@
 		</tr>
 		<c:forEach var="categorie" items="${listeCats}">
 			<tr>
-				<td><a href="${pageContext.request.contextPath}/site/produitsClient/${categorie.id}">${categorie.nom}</a></td>
-				
+				<td><a
+					href="${pageContext.request.contextPath}/site/produitsClient/${categorie.id}">${categorie.nom}</a></td>
+
 			</tr>
 		</c:forEach>
 	</table>
-Client: <a href="${pageContext.request.contextPath}/site/">Inscription</a>
-Client: <a href="${pageContext.request.contextPath}/site/">Se connecter</a>
-Admin: <a href="${pageContext.request.contextPath}/site/admin/categories"> Se connecter </a>
+	Client:
+	<a href="${pageContext.request.contextPath}/site/">Inscription</a>
+	Client:
+	<a href="${pageContext.request.contextPath}/site/">Se connecter</a>
+	Admin:
+	<a href="${pageContext.request.contextPath}/site/admin/categories">
+		Se connecter </a>
+
+	<br /> 
+	<br/>
+	Panier
+	<table>
+		<tr>
+			<th>Produit</th>
+			<th>Quantite</th>
+			<th>Prix</th>
+		</tr>
+		<c:forEach var="ligne" items="${listeLignes}">
+			<tr>
+				<td>${ligne.produit.designation}</td>
+				<td>${ligne.quantite}</td>
+				<td>${ligne.prix}</td>
+
+			</tr>
+		</c:forEach>
+	</table>
+	<br/>
+<table>
+	<tr>
+		<th>Total</th>
+	</tr>
+	<tr>
+		<td>${total}</td>
+	</tr>
+</table>
 </body>
 </html>

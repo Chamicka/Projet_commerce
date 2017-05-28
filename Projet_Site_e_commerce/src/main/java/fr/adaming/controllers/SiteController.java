@@ -43,13 +43,6 @@ public class SiteController {
 		this.cService = cService;
 	}
 
-	//Welcome
-	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
-	public String welcomePersonne(ModelMap model) {
-		List<Categorie> listeCat = cService.getAllCategories();
-		model.addAttribute("listeCats", listeCat);
-		return "accueilClient";
-	}
 
 	
 	//afficher les produits/catégories
