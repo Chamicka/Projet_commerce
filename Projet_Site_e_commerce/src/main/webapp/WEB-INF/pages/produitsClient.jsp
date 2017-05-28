@@ -42,7 +42,7 @@
 				<td><a
 					href="${pageContext.request.contextPath}/site/supprimerProduitPanier/${idCat}/${ligne.id}">Supprimer</a>|
 					<a
-					href="${pageContext.request.contextPath}/site/ajouterProduitLigne">
+					href="${pageContext.request.contextPath}/site/ajouterPanier/${ligne.produit.id}/${idCat}">
 						+1</a></td>
 				</td>
 			</tr>

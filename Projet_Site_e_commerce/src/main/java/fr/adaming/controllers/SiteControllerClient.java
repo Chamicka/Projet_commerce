@@ -82,6 +82,7 @@ public class SiteControllerClient {
 		// attributs catégories
 		List<Categorie> listeCat = cService.getAllCategories();
 		model.addAttribute("listeCats", listeCat);
+		model.addAttribute("idCat", 0);
 
 		// attributs panier
 		Panier panier = getPanier(session);
@@ -128,23 +129,36 @@ public class SiteControllerClient {
 			HttpSession session) {
 
 		// attributs catégorie
-		model.addAttribute("idCat", cId);
-		List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(cId));
-		model.addAttribute("listeProds", listeProd);
+		if(cId != 0) {
+			model.addAttribute("idCat", cId);
+			List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(cId));
+			model.addAttribute("listeProds", listeProd);
+		}
+	
 
-		//ajouter au panier
-		
-		//vérifier si le produit est déjà dans le panier
+		// ajouter au panier
+
+		// vérifier si le produit est déjà dans le panier
 		Panier panier = getPanier(session);
 		List<LigneCommande> lignes = panier.getLignesCommande();
-		for (int i = 0; i < lignes.size(); i++) {
-			if (lignes.get(i).equals(pService.getProduitById(pId)))
+		boolean dansPanier = false;
+		if (lignes != null) {
+			for (int i = 0; i < lignes.size(); i++) {
+				if (lignes.get(i).getProduit().getId() == pService.getProduitById(pId).getId()) {
+					panier = pService.ajouterAuPanierPlus(panier, i);
+					dansPanier = true;
+				}
+			}
 		}
-		
-		
-		
-		Panier p_rec = pService.ajouterAuPanier(pId, getPanier(session), 1);
-		session.setAttribute("sPanier", p_rec);
+
+		// si on l'a trouvé, on a juste rajouté +1 à sa quantité et on ajoute le
+		// panier à la session, sinon on ajoute une nouvelle ligne au panier
+		if (dansPanier) {
+			session.setAttribute("sPanier", panier);
+		} else {
+			Panier p_rec = pService.ajouterAuPanier(pId, getPanier(session), 1);
+			session.setAttribute("sPanier", p_rec);
+		}
 
 		// attributs panier
 		Panier panier_final = getPanier(session);
@@ -154,56 +168,42 @@ public class SiteControllerClient {
 		return "produitsClient";
 	}
 
-	@RequestMapping(value="/supprimerProduitPanier/{idC}/{idP}", method =RequestMethod.GET)
-	public String supprimerProduitPanier(ModelMap model,@PathVariable("idC") long cId, @PathVariable("idP") long pId, HttpSession session) {
-		
+	@RequestMapping(value = "/supprimerProduitPanier/{idC}/{idP}", method = RequestMethod.GET)
+	public String supprimerProduitPanier(ModelMap model, @PathVariable("idC") long cId, @PathVariable("idP") long pId,
+			HttpSession session) {
+
 		// attributs catégorie
 		model.addAttribute("idCat", cId);
 		List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(cId));
 		model.addAttribute("listeProds", listeProd);
-		
-		//supprimer la ligne
+
+		// supprimer la ligne
 		session.setAttribute("sPanier", panService.supprimerLigne(getPanier(session), pId));
-		
+
 		// attributs panier
 		Panier panier = getPanier(session);
 		model.addAttribute("listeLignes", panier.getLignesCommande());
 		model.addAttribute("total", panService.calculerTotal(panier));
-		
+
 		return "produitsClient";
 	}
-	
-	@RequestMapping(value="/supprimerProduitPanierAccueil/{idP}", method =RequestMethod.GET)
+
+	@RequestMapping(value = "/supprimerProduitPanierAccueil/{idP}", method = RequestMethod.GET)
 	public String supprimerProduitPanier(ModelMap model, @PathVariable("idP") long pId, HttpSession session) {
-		
+
 		// attributs catégories
 		List<Categorie> listeCat = cService.getAllCategories();
 		model.addAttribute("listeCats", listeCat);
-		
-		//supprimer la ligne
+
+		// supprimer la ligne
 		session.setAttribute("sPanier", panService.supprimerLigne(getPanier(session), pId));
-		
+
 		// attributs panier
 		Panier panier = getPanier(session);
 		model.addAttribute("listeLignes", panier.getLignesCommande());
 		model.addAttribute("total", panService.calculerTotal(panier));
-		
+
 		return "accueilClient";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

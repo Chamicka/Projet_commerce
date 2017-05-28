@@ -92,5 +92,11 @@ public class ProduitDaoImpl implements IProduitDao{
 		panier.setLignesCommande(newList);
 		return panier ;
 	}
+	
+	public Panier ajouterAuPanierPlus(Panier panier, int index) {
+		int quantite = panier.getLignesCommande().get(index).getQuantite();
+		panier.getLignesCommande().get(index).setQuantite(quantite+1);
+		return panier ;
+	}
 
 }

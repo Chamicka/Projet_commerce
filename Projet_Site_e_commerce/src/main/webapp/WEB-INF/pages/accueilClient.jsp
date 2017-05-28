@@ -46,7 +46,10 @@
 				<td>${ligne.quantite}</td>
 				<td>${ligne.prix}</td>
 				<td><a
-					href="${pageContext.request.contextPath}/site/supprimerProduitPanierAccueil/${ligne.id}">Supprimer</a></td>
+					href="${pageContext.request.contextPath}/site/supprimerProduitPanierAccueil/${ligne.id}">Supprimer</a>|
+					<a
+					href="${pageContext.request.contextPath}/site/ajouterPanier/${ligne.produit.id}/${idCat}">
+						+1</a></td>
 			</tr>
 		</c:forEach>
 	</table>

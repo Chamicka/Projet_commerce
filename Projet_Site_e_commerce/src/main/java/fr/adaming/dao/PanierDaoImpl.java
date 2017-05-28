@@ -32,7 +32,7 @@ public class PanierDaoImpl implements IPanierDao{
 		} else {
 			lignes = p.getLignesCommande() ;
 			for (int i=0; i<p.getLignesCommande().size(); i++) {
-				total = total + lignes.get(i).getPrix() ; 
+				total = total + (lignes.get(i).getPrix()*lignes.get(i).getQuantite()) ; 
 			}
 		}
 		return total;

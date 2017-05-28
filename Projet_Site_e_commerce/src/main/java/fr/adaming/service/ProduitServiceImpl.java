@@ -59,4 +59,9 @@ public class ProduitServiceImpl implements IProduitService {
 		return pDao.ajouterAuPanier(id_prod, panier, quantite);
 	}
 
+	@Override
+	public Panier ajouterAuPanierPlus(Panier panier, int index) {
+		return pDao.ajouterAuPanierPlus(panier, index);
+	}
+
 }
