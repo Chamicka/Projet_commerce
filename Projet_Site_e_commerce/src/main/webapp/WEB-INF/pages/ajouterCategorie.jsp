@@ -12,11 +12,13 @@
 <body>
 
 <h1>Formulaire d'ajout</h1>
-	<form:form action="insererCategorie" method="POST" modelAttribute="mCategorie">
+	<form:form action="insererCategorie" method="POST" modelAttribute="mCategorie" enctype="multipart/form-data">
 		<form:input type="hidden" path="id" />
 		<br />
 Nom: <form:input path="nom" />
 Description <form:input path="description" />
+Photo <input type="file" name="file"/>
+
 		<input value="Ajouter" type="submit">
 	</form:form>
 

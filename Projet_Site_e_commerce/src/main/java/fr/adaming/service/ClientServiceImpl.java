@@ -26,4 +26,19 @@ public class ClientServiceImpl implements IClientService {
 		return clDao.ajouterClient(cl);
 	}
 
+	@Override
+	public Client supprimerClient(Client cl) {
+		return clDao.supprimerClient(cl);
+	}
+
+	@Override
+	public Client modifierClient(Client cl) {
+		return clDao.modifierClient(cl);
+	}
+
+	@Override
+	public Client getClientById(long id) {
+		return clDao.getClientById(id);
+	}
+
 }

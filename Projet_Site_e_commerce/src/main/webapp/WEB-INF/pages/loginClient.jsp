@@ -11,7 +11,7 @@
 
 	<form action="j_spring_security_check" method="post">
 	
-			Login: <input type="text" name="j_username"/>
+			Mail: <input type="text" name="j_username"/>
 			<br/>
 			
 			Mot de passe: <input type="text" name="j_password"/>

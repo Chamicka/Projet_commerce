@@ -27,6 +27,11 @@ public class LoginController {
 		return "login" ;
 	}
 	
+	@RequestMapping(value="/loginClient", method=RequestMethod.GET)
+	public String affichePageLoginClient() {
+		return "loginClient" ;
+	}
+	
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logoutMethod(ModelMap model) {
 		model.addAttribute("listeCats", cService.getAllCategories());

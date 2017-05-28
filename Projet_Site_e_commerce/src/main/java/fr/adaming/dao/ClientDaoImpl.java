@@ -10,9 +10,7 @@ import fr.adaming.model.Client;
 public class ClientDaoImpl implements IClientDao {
 
 	private SessionFactory sf;
-	
-	
-	
+		
 	/**
 	 * @param sf the sf to set
 	 */
@@ -25,6 +23,27 @@ public class ClientDaoImpl implements IClientDao {
 		Session s = sf.getCurrentSession();
 		s.save(cl);
 		return cl;
+	}
+
+	@Override
+	public Client supprimerClient(Client cl) {
+		Session s = sf.getCurrentSession();
+		Client cl_rec=(Client) s.get(Client.class, cl.getId());
+		s.delete(cl_rec);
+		return null;
+	}
+
+	@Override
+	public Client modifierClient(Client cl) {
+		Session s = sf.getCurrentSession();
+		s.update(cl);
+		return null;
+	}
+
+	@Override
+	public Client getClientById(long id) {
+		Session s = sf.getCurrentSession();
+		return (Client) s.get(Client.class, id);
 	}
 
 }
