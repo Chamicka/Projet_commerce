@@ -22,6 +22,8 @@
 			</tr>
 		</c:forEach>
 	</table>
+Client: <a href="${pageContext.request.contextPath}/site/">Inscription</a>
+Client: <a href="${pageContext.request.contextPath}/site/">Se connecter</a>
 Admin: <a href="${pageContext.request.contextPath}/site/admin/categories"> Se connecter </a>
 </body>
 </html>
