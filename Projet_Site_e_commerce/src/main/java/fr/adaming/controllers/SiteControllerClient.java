@@ -1,6 +1,7 @@
 package fr.adaming.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -65,10 +66,11 @@ public class SiteControllerClient {
 	@RequestMapping(value = "/produitsClient/{idC}", method = RequestMethod.GET)
 	public String afficherListeProduits(ModelMap model, @PathVariable("idC") long cId, HttpSession session) {
 
+		model.addAttribute("idCat", cId);
 		List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(cId));
 		model.addAttribute("listeProds", listeProd);
 		Panier panier = getPanier(session) ;
-		System.out.println("panier : " + panier.getId());
+		
 		
 //		if (model.get("mPanier") == null) {
 //			System.out.println("dans le if panier");
@@ -87,12 +89,17 @@ public class SiteControllerClient {
 		return "accueilClient";
 	}
 
-	@RequestMapping(value="/ajouterPanier/{idP}", method=RequestMethod.GET)
-	public String ajouterAuPanier(@PathVariable("idP") long pId, HttpSession session) {
+	//ajouter au panier
+	@RequestMapping(value="/ajouterPanier/{idP}/{idC}", method=RequestMethod.GET)
+	public String ajouterAuPanier(ModelMap model, @PathVariable("idP") long pId, @PathVariable("idC") long cId, HttpSession session) {
+		model.addAttribute("idCat", cId) ;
 		
 		Panier p_rec = pService.ajouterAuPanier(pId, getPanier(session), 8);
 		session.setAttribute("sPanier", p_rec);
-		System.out.println("panier : " + p_rec.getLignesCommande());
+		
+		List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(cId));
+		model.addAttribute("listeProds", listeProd);
+		
 		return "produitsClient" ;
 	}
 }

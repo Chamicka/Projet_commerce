@@ -84,13 +84,10 @@ public class ProduitDaoImpl implements IProduitDao{
 		
 		List<LigneCommande> newList = new ArrayList<LigneCommande>();
 		if (panier.getLignesCommande() == null) {
-			System.out.println("dans le if null");
 		} else {
 			newList = panier.getLignesCommande() ;
 		}
 		newList.add(lc);
-		System.out.println("liste rec : " + newList);
-		System.out.println("ligne a ajouter : " + lc);
 		panier.setLignesCommande(newList);
 		return panier ;
 	}
