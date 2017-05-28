@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import fr.adaming.model.Categorie;
+import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Panier;
 import fr.adaming.model.Produit;
 import fr.adaming.service.ICategorieService;
@@ -132,13 +133,23 @@ public class SiteControllerClient {
 		model.addAttribute("listeProds", listeProd);
 
 		//ajouter au panier
+		
+		//vérifier si le produit est déjà dans le panier
+		Panier panier = getPanier(session);
+		List<LigneCommande> lignes = panier.getLignesCommande();
+		for (int i = 0; i < lignes.size(); i++) {
+			if (lignes.get(i).equals(pService.getProduitById(pId)))
+		}
+		
+		
+		
 		Panier p_rec = pService.ajouterAuPanier(pId, getPanier(session), 1);
 		session.setAttribute("sPanier", p_rec);
 
 		// attributs panier
-		Panier panier = getPanier(session);
-		model.addAttribute("listeLignes", panier.getLignesCommande());
-		model.addAttribute("total", panService.calculerTotal(panier));
+		Panier panier_final = getPanier(session);
+		model.addAttribute("listeLignes", panier_final.getLignesCommande());
+		model.addAttribute("total", panService.calculerTotal(panier_final));
 
 		return "produitsClient";
 	}
@@ -162,7 +173,23 @@ public class SiteControllerClient {
 		return "produitsClient";
 	}
 	
-	
+	@RequestMapping(value="/supprimerProduitPanierAccueil/{idP}", method =RequestMethod.GET)
+	public String supprimerProduitPanier(ModelMap model, @PathVariable("idP") long pId, HttpSession session) {
+		
+		// attributs catégories
+		List<Categorie> listeCat = cService.getAllCategories();
+		model.addAttribute("listeCats", listeCat);
+		
+		//supprimer la ligne
+		session.setAttribute("sPanier", panService.supprimerLigne(getPanier(session), pId));
+		
+		// attributs panier
+		Panier panier = getPanier(session);
+		model.addAttribute("listeLignes", panier.getLignesCommande());
+		model.addAttribute("total", panService.calculerTotal(panier));
+		
+		return "accueilClient";
+	}
 	
 	
 	

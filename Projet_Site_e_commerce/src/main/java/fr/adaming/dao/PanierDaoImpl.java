@@ -40,20 +40,18 @@ public class PanierDaoImpl implements IPanierDao{
 	}
 
 	@Override
-	public Panier supprimerLigne(Panier p, long idP) {
+	public Panier supprimerLigne(Panier p, long idL) {
 		List<LigneCommande> lignes = new ArrayList<LigneCommande>();
 		if (p.getLignesCommande() == null) {
 		} else {
 			lignes = p.getLignesCommande() ;
-			int id = (int) idP ;
-			
-			
-			LigneCommande retour = lignes.remove(id);
-			
+			int id = (int) idL ;
+			lignes.remove(id);
+			for (int i = id; i<lignes.size(); i++) {
+				lignes.get(i).setId(lignes.get(i).getId()-1);
+			}
 		}
-		System.out.println("lignes de commande après le else : " + lignes);
 		p.setLignesCommande(lignes);
-		System.out.println("lignes chagées dans le panier avant le return : " + p.getLignesCommande());
 		return p;
 	}
 

@@ -81,12 +81,12 @@ public class ProduitDaoImpl implements IProduitDao{
 		lc.setProduit(p_rec);
 		lc.setQuantite(quantite);
 		lc.calculerPrix();
-		System.out.println("id de la ligne de commande créée : " + lc.getId());
-		
 		List<LigneCommande> newList = new ArrayList<LigneCommande>();
 		if (panier.getLignesCommande() == null) {
 		} else {
-			newList = panier.getLignesCommande() ;
+			newList = panier.getLignesCommande();
+			int i = newList.size();
+			lc.setId(i);
 		}
 		newList.add(lc);
 		panier.setLignesCommande(newList);

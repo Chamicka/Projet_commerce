@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +8,7 @@
 <title>Produits</title>
 </head>
 <body>
-<table>
+	<table>
 		<tr>
 			<th>designation</th>
 			<th>description</th>
@@ -19,14 +19,14 @@
 				<td>${produit.designation}</td>
 				<td>${produit.description}</td>
 				<td>${produit.prix}</td>
-				<td><a href="${pageContext.request.contextPath}/site/ajouterPanier/${produit.id}/${idCat}">Ajouter au panier</a>
-				
+				<td><a
+					href="${pageContext.request.contextPath}/site/ajouterPanier/${produit.id}/${idCat}">Ajouter
+						au panier</a>
 			</tr>
 		</c:forEach>
 	</table>
-	<br /> 
-	<br/>
-	Panier
+	<br />
+	<br /> Panier
 	<table>
 		<tr>
 			<th>Produit</th>
@@ -39,19 +39,26 @@
 				<td>${ligne.produit.designation}</td>
 				<td>${ligne.quantite}</td>
 				<td>${ligne.prix}</td>
-				<td><a href="${pageContext.request.contextPath}/site/supprimerProduitPanier/${idCat}/${ligne.id}">Supprimer</a></td>
+				<td><a
+					href="${pageContext.request.contextPath}/site/supprimerProduitPanier/${idCat}/${ligne.id}">Supprimer</a>|
+					<a
+					href="${pageContext.request.contextPath}/site/ajouterProduitLigne">
+						+1</a></td>
+				</td>
 			</tr>
 		</c:forEach>
 	</table>
-	<br/>
-<table>
-	<tr>
-		<th>Total</th>
-	</tr>
-	<tr>
-		<td>${total}</td>
-	</tr>
-</table>
-
+	<br />
+	<table>
+		<tr>
+			<th>Total</th>
+		</tr>
+		<tr>
+			<td>${total}</td>
+		</tr>
+	</table>
+	<h1>
+		<a href="${pageContext.request.contextPath}/site/welcome">ACCUEIL</a>
+	</h1>
 </body>
 </html>
