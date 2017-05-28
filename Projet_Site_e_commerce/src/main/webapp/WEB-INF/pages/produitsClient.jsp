@@ -19,7 +19,7 @@
 				<td>${produit.designation}</td>
 				<td>${produit.description}</td>
 				<td>${produit.prix}</td>
-				<td><a href="${pageContext.request.contextPath}/site/${produit.id}">Ajouter au panier</a>
+				<td><a href="${pageContext.request.contextPath}/site/ajouterPanier/${produit.id}/${mPanier}">Ajouter au panier</a>
 				
 			</tr>
 		</c:forEach>

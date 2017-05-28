@@ -74,20 +74,25 @@ public class ProduitDaoImpl implements IProduitDao{
 	}
 
 	@Override
-	public Produit ajouterAuPanier(long id_prod, Panier panier, int quantite) {
+	public Panier ajouterAuPanier(long id_prod, Panier panier, int quantite) {
 		Session s=sf.getCurrentSession();
-		String rec = "FROM Produit p WHERE p.id=:pIdP" ;
-		Query query = s.createQuery(rec);
-		query.setParameter("pIdP", id_prod);
+		Produit p_rec = (Produit) s.get(Produit.class, id_prod);
 		LigneCommande lc = new LigneCommande() ;
-		lc.setProduit((Produit) query.uniqueResult());
+		lc.setProduit(p_rec);
 		lc.setQuantite(quantite);
 		lc.calculerPrix();
-	    //?
-		List<LigneCommande> listeLignes = new ArrayList<LigneCommande>();
-		listeLignes.add(lc);
-		panier.setLignesCommande(listeLignes);
-		return (Produit) query.uniqueResult() ;
+		
+		List<LigneCommande> newList = new ArrayList<LigneCommande>();
+		if (panier.getLignesCommande() == null) {
+			System.out.println("dans le if null");
+		} else {
+			newList = panier.getLignesCommande() ;
+		}
+		newList.add(lc);
+		System.out.println("liste rec : " + newList);
+		System.out.println("ligne a ajouter : " + lc);
+		panier.setLignesCommande(newList);
+		return panier ;
 	}
 
 }

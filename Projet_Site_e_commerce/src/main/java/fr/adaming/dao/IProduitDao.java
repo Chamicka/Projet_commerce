@@ -3,6 +3,7 @@ package fr.adaming.dao;
 import java.util.List;
 
 import fr.adaming.model.Categorie;
+import fr.adaming.model.Panier;
 import fr.adaming.model.Produit;
 
 public interface IProduitDao {
@@ -13,7 +14,7 @@ public interface IProduitDao {
 	public Produit getProduitById(long id);
 	public List<Produit> getAllProduits();
 	public List<Produit> getAllProduitsByCat(Categorie c);
-	public Produit ajouterAuPanier(long id_prod, long id_pan , int quantite);
+	public Panier ajouterAuPanier(long id_prod, Panier panier , int quantite);
 	
 	
 	

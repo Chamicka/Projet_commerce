@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import fr.adaming.dao.IProduitDao;
 import fr.adaming.model.Categorie;
+import fr.adaming.model.Panier;
 import fr.adaming.model.Produit;
 @Service
 @Transactional
@@ -54,8 +55,8 @@ public class ProduitServiceImpl implements IProduitService {
 	}
 
 	@Override
-	public Produit ajouterAuPanier(long id_prod, long id_pan , int quantite) {
-		return pDao.ajouterAuPanier(id, quantite);
+	public Panier  ajouterAuPanier(long id_prod, Panier panier , int quantite) {
+		return pDao.ajouterAuPanier(id_prod, panier, quantite);
 	}
 
 }
