@@ -39,7 +39,7 @@
 				<td>${ligne.produit.designation}</td>
 				<td>${ligne.quantite}</td>
 				<td>${ligne.prix}</td>
-				<td></td>
+				<td><a href="${pageContext.request.contextPath}/site/supprimerProduitPanier/${idCat}/${ligne.id}">Supprimer</a></td>
 			</tr>
 		</c:forEach>
 	</table>

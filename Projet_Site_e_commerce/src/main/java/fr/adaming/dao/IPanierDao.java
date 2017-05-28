@@ -5,4 +5,5 @@ import fr.adaming.model.Panier;
 public interface IPanierDao {
 
 	public int calculerTotal(Panier p);
+	public Panier supprimerLigne(Panier p, long idL);
 }

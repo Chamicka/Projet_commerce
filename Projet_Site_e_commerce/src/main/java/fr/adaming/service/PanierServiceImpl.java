@@ -29,4 +29,10 @@ public class PanierServiceImpl implements IPanierService {
 		return pDao.calculerTotal(p);
 	}
 
+
+	@Override
+	public Panier supprimerLigne(Panier p, long idL) {
+		return pDao.supprimerLigne(p, idL);
+	}
+
 }

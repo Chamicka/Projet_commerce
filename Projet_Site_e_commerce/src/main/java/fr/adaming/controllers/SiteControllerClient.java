@@ -73,22 +73,22 @@ public class SiteControllerClient {
 		}
 
 	}
-	
-	//Welcome
-		@RequestMapping(value = "/welcome", method = RequestMethod.GET)
-		public String welcomePersonne(ModelMap model, HttpSession session) {
-			
-			//attributs catégories
-			List<Categorie> listeCat = cService.getAllCategories();
-			model.addAttribute("listeCats", listeCat);
-			
-			// attributs panier
-			Panier panier = getPanier(session);
-			model.addAttribute("listeLignes", panier.getLignesCommande());
-			model.addAttribute("total", panService.calculerTotal(panier));
-		
-			return "accueilClient";
-		}
+
+	// Welcome
+	@RequestMapping(value = "/welcome", method = RequestMethod.GET)
+	public String welcomePersonne(ModelMap model, HttpSession session) {
+
+		// attributs catégories
+		List<Categorie> listeCat = cService.getAllCategories();
+		model.addAttribute("listeCats", listeCat);
+
+		// attributs panier
+		Panier panier = getPanier(session);
+		model.addAttribute("listeLignes", panier.getLignesCommande());
+		model.addAttribute("total", panService.calculerTotal(panier));
+
+		return "accueilClient";
+	}
 
 	// afficher les produits/catégories
 	@RequestMapping(value = "/produitsClient/{idC}", method = RequestMethod.GET)
@@ -132,7 +132,7 @@ public class SiteControllerClient {
 		model.addAttribute("listeProds", listeProd);
 
 		//ajouter au panier
-		Panier p_rec = pService.ajouterAuPanier(pId, getPanier(session), 8);
+		Panier p_rec = pService.ajouterAuPanier(pId, getPanier(session), 1);
 		session.setAttribute("sPanier", p_rec);
 
 		// attributs panier
@@ -142,4 +142,41 @@ public class SiteControllerClient {
 
 		return "produitsClient";
 	}
+
+	@RequestMapping(value="/supprimerProduitPanier/{idC}/{idP}", method =RequestMethod.GET)
+	public String supprimerProduitPanier(ModelMap model,@PathVariable("idC") long cId, @PathVariable("idP") long pId, HttpSession session) {
+		
+		// attributs catégorie
+		model.addAttribute("idCat", cId);
+		List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(cId));
+		model.addAttribute("listeProds", listeProd);
+		
+		//supprimer la ligne
+		session.setAttribute("sPanier", panService.supprimerLigne(getPanier(session), pId));
+		
+		// attributs panier
+		Panier panier = getPanier(session);
+		model.addAttribute("listeLignes", panier.getLignesCommande());
+		model.addAttribute("total", panService.calculerTotal(panier));
+		
+		return "produitsClient";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
