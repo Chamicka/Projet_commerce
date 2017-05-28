@@ -48,7 +48,7 @@
 				<td><a
 					href="${pageContext.request.contextPath}/site/supprimerProduitPanierAccueil/${ligne.id}">Supprimer</a>|
 					<a
-					href="${pageContext.request.contextPath}/site/ajouterPanier/${ligne.produit.id}/${idCat}">
+					href="${pageContext.request.contextPath}/site/ajouterPanierAccueil/${ligne.produit.id}">
 						+1</a></td>
 			</tr>
 		</c:forEach>

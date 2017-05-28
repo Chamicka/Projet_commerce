@@ -20,7 +20,7 @@
 				<td>${produit.description}</td>
 				<td>${produit.prix}</td>
 				<td><a
-					href="${pageContext.request.contextPath}/site/ajouterPanier/${produit.id}/${idCat}">Ajouter
+					href="${pageContext.request.contextPath}/site/ajouterPanier/${produit.id}">Ajouter
 						au panier</a>
 			</tr>
 		</c:forEach>
@@ -40,9 +40,9 @@
 				<td>${ligne.quantite}</td>
 				<td>${ligne.prix}</td>
 				<td><a
-					href="${pageContext.request.contextPath}/site/supprimerProduitPanier/${idCat}/${ligne.id}">Supprimer</a>|
+					href="${pageContext.request.contextPath}/site/supprimerProduitPanier/${ligne.id}">Supprimer</a>|
 					<a
-					href="${pageContext.request.contextPath}/site/ajouterPanier/${ligne.produit.id}/${idCat}">
+					href="${pageContext.request.contextPath}/site/ajouterPanier/${ligne.produit.id}">
 						+1</a></td>
 				</td>
 			</tr>
