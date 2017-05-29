@@ -22,6 +22,7 @@
 Designation: <form:input path="designation" />
 Description: <form:input path="description" />
 Prix: <form:input path="prix" />
+Photo <form:input path="photo"/>
 		<input value="Ajouter" type="submit">
 	</form:form>
 

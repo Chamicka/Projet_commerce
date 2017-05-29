@@ -15,12 +15,15 @@
 	<table>
 		<tr>
 			<th>designation</th>
+			<th>Photo</th>
 			<th>description</th>
 			<th>prix</th>
 		</tr>
 		<c:forEach var="produit" items="${listeProds}">
 			<tr>
 				<td>${produit.designation}</td>
+				<td><img src="${produit.photo}" class="img-circle"
+					width="150" height="100"></td>
 				<td>${produit.description}</td>
 				<td>${produit.prix}</td>
 				<td><a

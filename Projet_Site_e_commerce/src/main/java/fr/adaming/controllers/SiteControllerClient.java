@@ -121,12 +121,6 @@ public class SiteControllerClient {
 		model.addAttribute("listeLignes", panier.getLignesCommande());
 		model.addAttribute("total", panService.calculerTotal(panier));
 
-		// if (model.get("mPanier") == null) {
-		// System.out.println("dans le if panier");
-		// Panier panier = new Panier();
-		// model.addAttribute("mPanier", panier);
-		// model.getClass();
-		// }
 		return "produitsClient";
 	}
 
