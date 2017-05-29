@@ -11,7 +11,7 @@
 <link href="<c:url value="/resource/tables.css"/>" rel="stylesheet">
 </head>
 <body>
-<%@include file="/WEB-INF/templates/header.jsp"%>
+	<%@include file="/WEB-INF/templates/header.jsp"%>
 	<table>
 		<tr>
 			<th>designation</th>
@@ -47,8 +47,9 @@
 					href="${pageContext.request.contextPath}/site/supprimerProduitPanier/${ligne.id}">Supprimer</a>|
 					<a
 					href="${pageContext.request.contextPath}/site/ajouterPanier/${ligne.produit.id}">
-						+1</a></td>
-				</td>
+						+1</a>| <a
+					href="${pageContext.request.contextPath}/site/moinsProduitPanier/${ligne.produit.id}">
+						-1</a></td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -64,6 +65,6 @@
 	<h1>
 		<a href="${pageContext.request.contextPath}/site/welcome">ACCUEIL</a>
 	</h1>
-		<%@include file="/WEB-INF/templates/footer.jsp"%>
+	<%@include file="/WEB-INF/templates/footer.jsp"%>
 </body>
 </html>

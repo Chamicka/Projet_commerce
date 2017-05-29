@@ -50,7 +50,10 @@
 					href="${pageContext.request.contextPath}/site/supprimerProduitPanierAccueil/${ligne.id}">Supprimer</a>|
 					<a
 					href="${pageContext.request.contextPath}/site/ajouterPanierAccueil/${ligne.produit.id}">
-						+1</a></td>
+						+1</a>|
+					<a
+					href="${pageContext.request.contextPath}/site/moinsProduitPanierAccueil/${ligne.produit.id}">
+						-1</a></td>
 			</tr>
 		</c:forEach>
 	</table>

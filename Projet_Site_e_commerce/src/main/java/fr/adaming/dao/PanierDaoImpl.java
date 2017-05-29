@@ -55,4 +55,16 @@ public class PanierDaoImpl implements IPanierDao{
 		return p;
 	}
 
+	@Override
+	public Panier supprimerMoins(Panier p, int index) {
+		int quantite = p.getLignesCommande().get(index).getQuantite();
+		if (quantite == 1) {
+			long lId = (long) index ;
+			p = supprimerLigne(p, lId);
+		} else {
+			p.getLignesCommande().get(index).setQuantite(quantite-1);
+		}
+		return p ;
+	}
+
 }

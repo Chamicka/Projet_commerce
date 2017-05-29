@@ -228,13 +228,40 @@ public class SiteControllerClient {
 		List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(getIdCat(session)));
 		model.addAttribute("listeProds", listeProd);
 
-		// supprimer la ligne
 		session.setAttribute("sPanier", panService.supprimerLigne(getPanier(session), pId));
+		
 
 		// attributs panier
+		Panier panier_final = getPanier(session);
+		model.addAttribute("listeLignes", panier_final.getLignesCommande());
+		model.addAttribute("total", panService.calculerTotal(panier_final));
+
+		return "produitsClient";
+	}
+	
+	@RequestMapping(value = "/moinsProduitPanier/{idP}", method = RequestMethod.GET)
+	public String moinsProduitPanier(ModelMap model, @PathVariable("idP") long pId,
+			HttpSession session) {
+
+		// attributs catégorie
+		model.addAttribute("idCat", getIdCat(session));
+		List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(getIdCat(session)));
+		model.addAttribute("listeProds", listeProd);
+
 		Panier panier = getPanier(session);
-		model.addAttribute("listeLignes", panier.getLignesCommande());
-		model.addAttribute("total", panService.calculerTotal(panier));
+		List<LigneCommande> lignes = panier.getLignesCommande();
+		for (int i = 0; i < lignes.size(); i++) {
+			if (lignes.get(i).getProduit().getId() == pService.getProduitById(pId).getId()) {
+				session.setAttribute("sPanier", panService.supprimerMoins(getPanier(session), i));
+			}
+		}
+		// supprimer la ligne
+		
+
+		// attributs panier
+		Panier panier_final = getPanier(session);
+		model.addAttribute("listeLignes", panier_final.getLignesCommande());
+		model.addAttribute("total", panService.calculerTotal(panier_final));
 
 		return "produitsClient";
 	}
@@ -246,6 +273,7 @@ public class SiteControllerClient {
 		List<Categorie> listeCat = cService.getAllCategories();
 		model.addAttribute("listeCats", listeCat);
 
+		
 		// supprimer la ligne
 		session.setAttribute("sPanier", panService.supprimerLigne(getPanier(session), pId));
 
@@ -257,4 +285,28 @@ public class SiteControllerClient {
 		return "accueilClient";
 	}
 
+	@RequestMapping(value = "/moinsProduitPanierAccueil/{idP}", method = RequestMethod.GET)
+	public String moinsProduitPanierAccueil(ModelMap model, @PathVariable("idP") long pId, HttpSession session) {
+
+		// attributs catégories
+		List<Categorie> listeCat = cService.getAllCategories();
+		model.addAttribute("listeCats", listeCat);
+
+		Panier panier = getPanier(session);
+		List<LigneCommande> lignes = panier.getLignesCommande();
+		for (int i = 0; i < lignes.size(); i++) {
+			if (lignes.get(i).getProduit().getId() == pService.getProduitById(pId).getId()) {
+				session.setAttribute("sPanier", panService.supprimerMoins(getPanier(session), i));
+			}
+		}
+		// supprimer la ligne
+		
+
+		// attributs panier
+		Panier panier_final = getPanier(session);
+		model.addAttribute("listeLignes", panier_final.getLignesCommande());
+		model.addAttribute("total", panService.calculerTotal(panier_final));
+
+		return "accueilClient";
+	}
 }
