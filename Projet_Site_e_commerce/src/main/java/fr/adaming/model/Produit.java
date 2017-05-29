@@ -28,8 +28,7 @@ public class Produit implements Serializable {
 	private double prix ;
 	private int quantite ;
 	private boolean selectionne ;
-	@Lob
-	private byte[] photo;
+	private String photo;
 	
 	
 	@ManyToOne
@@ -52,7 +51,7 @@ public class Produit implements Serializable {
 	 * @param photo
 	 * @param categorie
 	 */
-	public Produit(String designation, String description, double prix, int quantite, boolean selectionne, byte[] photo,
+	public Produit(String designation, String description, double prix, int quantite, boolean selectionne, String photo,
 			Categorie categorie) {
 		super();
 		this.designation = designation;
@@ -75,7 +74,7 @@ public class Produit implements Serializable {
 	 * @param categorie
 	 */
 	public Produit(Long id, String designation, String description, double prix, int quantite, boolean selectionne,
-			byte[] photo, Categorie categorie) {
+			String photo, Categorie categorie) {
 		super();
 		this.id = id;
 		this.designation = designation;
@@ -174,14 +173,14 @@ public class Produit implements Serializable {
 	/**
 	 * @return the photo
 	 */
-	public byte[] getPhoto() {
+	public String getPhoto() {
 		return photo;
 	}
 
 	/**
 	 * @param photo the photo to set
 	 */
-	public void setPhoto(byte[] photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 

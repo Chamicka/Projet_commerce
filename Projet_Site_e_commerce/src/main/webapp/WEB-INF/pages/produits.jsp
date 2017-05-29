@@ -6,8 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Produits</title>
+<link href="<c:url value="/resource/bootstrap.css"/>" rel="stylesheet">
+<link href="<c:url value="/resource/MyStyle.css"/>" rel="stylesheet">
+<link href="<c:url value="/resource/tables.css"/>" rel="stylesheet">
 </head>
 <body>
+<%@include file="/WEB-INF/templates/header.jsp"%>
 	<table>
 		<tr>
 			<th>designation</th>
@@ -35,5 +39,6 @@
 
 	<br />
 	<a href="<c:url value="/j_spring_security_logout"/>">Se deconnecter</a>
+		<%@include file="/WEB-INF/templates/footer.jsp"%>
 </body>
 </html>

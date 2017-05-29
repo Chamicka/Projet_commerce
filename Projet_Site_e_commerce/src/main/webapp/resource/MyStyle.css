@@ -1,0 +1,22 @@
+@CHARSET "ISO-8859-1";
+.classHeader{
+	background-color: rgb(0, 158, 223);
+	height: 120px;
+}
+.classFooter{
+	background-color: rgb(0, 158, 223);
+	height: 20px;
+	bottom:0;
+	position:fixed;
+	width: 100%;
+}
+#nomSite{
+	color:white;
+	text-align: center;
+	margin: auto;
+}
+#sign{
+	color:white;
+	text-align: right;
+	padding-right: 10px;
+}

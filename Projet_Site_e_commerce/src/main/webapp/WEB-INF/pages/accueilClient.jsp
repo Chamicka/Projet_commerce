@@ -7,33 +7,34 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Accueil Client</title>
-<%--  <link rel="stylesheet" href='<c:url value=""/>' /> --%>
+<link href="<c:url value="/resource/bootstrap.css"/>" rel="stylesheet">
+<link href="<c:url value="/resource/MyStyle.css"/>" rel="stylesheet">
+<link href="<c:url value="/resource/tables.css"/>" rel="stylesheet">
 </head>
 
 <body>
-	<table>
-		<tr>
-			<th>Nom</th>
-		</tr>
-		<c:forEach var="categorie" items="${listeCats}">
-			<tr>
-				<td><a
-					href="${pageContext.request.contextPath}/site/produitsClient/${categorie.id}">${categorie.nom}</a></td>
+	<%@include file="/WEB-INF/templates/header.jsp"%>
 
-			</tr>
+	<div>
+		<c:forEach var="categorie" items="${listeCats}">
+			<div style="display: inline-block; margin: 30px; width: 20%;">
+				<a
+					href="${pageContext.request.contextPath}/site/produitsClient/${categorie.id}"><img
+					src="${categorie.photo}" class="img-circle" width="304"
+					height="236"></a>
+			</div>
 		</c:forEach>
-	</table>
-	Client:
-	<a href="${pageContext.request.contextPath}/site/">Inscription</a>
-	Client:
-	<a href="${pageContext.request.contextPath}/site/">Se connecter</a>
+	</div>
+<br/>
+<br/>
+
 	Admin:
 	<a href="${pageContext.request.contextPath}/site/admin/categories">
 		Se connecter </a>
 
 	<br />
-	<br /> Panier
-	<table>
+	<br /> <h5 style="text-align:center; font-size: large; color:red">Panier</h5>
+	<table class="table">
 		<tr>
 			<th>Produit</th>
 			<th>Quantite</th>
@@ -62,5 +63,6 @@
 			<td>${total}</td>
 		</tr>
 	</table>
+	<%@include file="/WEB-INF/templates/footer.jsp"%>
 </body>
 </html>

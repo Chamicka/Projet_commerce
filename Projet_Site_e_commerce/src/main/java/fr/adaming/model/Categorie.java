@@ -25,7 +25,7 @@ public class Categorie implements Serializable {
 	@Column(name="nom_ca")
 	private String nom;
 	@Lob
-	private byte[] photo;
+	private String photo;
 	private String description;
 	
 	@OneToMany(mappedBy="categorie", cascade=CascadeType.REMOVE)
@@ -35,14 +35,14 @@ public class Categorie implements Serializable {
 		super();
 	}
 
-	public Categorie(String nom, byte[] photo, String description) {
+	public Categorie(String nom, String photo, String description) {
 		super();
 		this.nom = nom;
 		this.photo = photo;
 		this.description = description;
 	}
 
-	public Categorie(Long id, String nom, byte[] photo, String description) {
+	public Categorie(Long id, String nom, String photo, String description) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -66,11 +66,11 @@ public class Categorie implements Serializable {
 		this.nom = nom;
 	}
 
-	public byte[] getPhoto() {
+	public String getPhoto() {
 		return photo;
 	}
 
-	public void setPhoto(byte[] photo) {
+	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
 
@@ -94,7 +94,7 @@ public class Categorie implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Categorie [id=" + id + ", nom=" + nom + ", photo=" + Arrays.toString(photo) + ", description="
+		return "Categorie [id=" + id + ", nom=" + nom + ", photo=" + photo + ", description="
 				+ description + "]";
 	}
 	
