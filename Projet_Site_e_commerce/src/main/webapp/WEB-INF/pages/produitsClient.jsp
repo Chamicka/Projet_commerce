@@ -83,10 +83,10 @@
 	</table>
 	</div>
 	
+	<div style="width: 400px;"><a class="btn btn-info" href="${pageContext.request.contextPath}/site/welcome" role="button">Accueil</a>
+	</div>
 
-	<h1>
-		<a href="${pageContext.request.contextPath}/site/welcome">ACCUEIL</a>
-	</h1>
+
 	<%@include file="/WEB-INF/templates/footer.jsp"%>
 </body>
 </html>
