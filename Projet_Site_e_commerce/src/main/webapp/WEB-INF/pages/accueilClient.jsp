@@ -17,24 +17,25 @@
 
 	<div>
 		<c:forEach var="categorie" items="${listeCats}">
-			<div style="display: inline-block; margin: 30px; width: 20%;">
+			<div style="display: inline-block; margin: auto; margin:50px; width: 230px; position:relative; padding: 10px">
 				<a
 					href="${pageContext.request.contextPath}/site/produitsClient/${categorie.id}"><img
-					src="${categorie.photo}" class="img-circle" width="304"
-					height="236"></a>
+					src="${categorie.photo}" class="img-circle" width="200"
+					height="150" ></a>
+					<br/>
+					<h6 style="text-align:center; font-size: large;">${categorie.nom}</h6>
 			</div>
 		</c:forEach>
 	</div>
 <br/>
 <br/>
 
-	Admin:
-	<a href="${pageContext.request.contextPath}/site/admin/categories">
-		Se connecter </a>
-
+	
 	<br />
-	<br /> <h5 style="text-align:center; font-size: large; color:red">Panier</h5>
-	<table class="table">
+	<br />
+	
+	<div> <h5 style="font-size: large; color:red;width: 25%; text-align: center">Panier</h5>
+	<table class="table table-hover" style="width: 25%">
 		<tr>
 			<th>Produit</th>
 			<th>Quantite</th>
@@ -66,6 +67,10 @@
 			<td>${total}</td>
 		</tr>
 	</table>
+	</div>
+	<div style="width: 400px;">Admin : <a class="btn btn-info" href="${pageContext.request.contextPath}/site/admin/categories" role="button">Se connecter</a>
+	
+	</div>
 	<%@include file="/WEB-INF/templates/footer.jsp"%>
 </body>
 </html>

@@ -12,26 +12,44 @@
 </head>
 <body>
 	<%@include file="/WEB-INF/templates/header.jsp"%>
-	<table>
-		<tr>
-			<th>designation</th>
-			<th>description</th>
-			<th>prix</th>
+	
+	<div class="container">
+    <div class="row col-md-6 col-md-offset-2 custyle">
+    <table class="table table-striped custab">
+    <thead>
+    <br/>
+    <br/>
+       <tr>
+			<th>Designation</th>
+			<th>Photo</th>
+			<th>Description</th>
+			<th>Prix</th>
+			<th>Action</th>
 		</tr>
-		<c:forEach var="produit" items="${listeProds}">
+    </thead>
+           	<c:forEach var="produit" items="${listeProds}">
 			<tr>
 				<td>${produit.designation}</td>
+				<td><img src="${produit.photo}" class="img-circle" width="200"
+					height="150"></td>
 				<td>${produit.description}</td>
 				<td>${produit.prix}</td>
 				<td><a
 					href="${pageContext.request.contextPath}/site/ajouterPanier/${produit.id}">Ajouter
 						au panier</a>
-			</tr>
-		</c:forEach>
-	</table>
+				</tr>
+            	</c:forEach>
+    </table>
+    </div>
+</div>
+	
+	
+	
 	<br />
-	<br /> Panier
-	<table>
+	<br />
+	
+		<div> <h5 style="font-size: large; color:red;width: 25%; text-align: center">Panier</h5>
+	<table class="table table-hover" style="width: 25%">
 		<tr>
 			<th>Produit</th>
 			<th>Quantite</th>
@@ -47,7 +65,8 @@
 					href="${pageContext.request.contextPath}/site/supprimerProduitPanier/${ligne.id}">Supprimer</a>|
 					<a
 					href="${pageContext.request.contextPath}/site/ajouterPanier/${ligne.produit.id}">
-						+1</a>| <a
+						+1</a>|
+					<a
 					href="${pageContext.request.contextPath}/site/moinsProduitPanier/${ligne.produit.id}">
 						-1</a></td>
 			</tr>
@@ -62,6 +81,9 @@
 			<td>${total}</td>
 		</tr>
 	</table>
+	</div>
+	
+
 	<h1>
 		<a href="${pageContext.request.contextPath}/site/welcome">ACCUEIL</a>
 	</h1>

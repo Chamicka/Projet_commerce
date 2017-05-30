@@ -31,7 +31,8 @@ Photo <form:input path="photo"/>
 	</form:form>
 
 <br/>
-<a href="<c:url value="/j_spring_security_logout"/>">Se deconnecter</a>
+<div style="width: 400px;"><a class="btn btn-info" href="<c:url value="/j_spring_security_logout"/>" role="button">Se déconnecter</a>
+	</div>
 	<%@include file="/WEB-INF/templates/footer.jsp"%>
 </body>
 </html>
