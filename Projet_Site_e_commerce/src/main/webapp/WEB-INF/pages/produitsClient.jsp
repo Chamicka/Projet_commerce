@@ -23,6 +23,7 @@
 			<th>Designation</th>
 			<th>Photo</th>
 			<th>Description</th>
+			<th>Disponible</th>
 			<th>Prix</th>
 			<th>Action</th>
 		</tr>
@@ -33,6 +34,7 @@
 				<td><img src="${produit.photo}" class="img-circle" width="200"
 					height="150"></td>
 				<td>${produit.description}</td>
+				<td>${produit.quantite}</td>
 				<td>${produit.prix}</td>
 				<td><a
 					href="${pageContext.request.contextPath}/site/ajouterPanier/${produit.id}">Ajouter
@@ -42,7 +44,7 @@
     </table>
     </div>
 </div>
-	
+	<h3>${dispo}</h3>
 	
 	
 	<br />

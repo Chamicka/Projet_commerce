@@ -24,6 +24,7 @@
 			<th>Designation</th>
 			<th>Photo</th>
 			<th>Description</th>
+			<th>Disponible</th>
 			<th>Prix</th>
 			<th>Action</th>
 		</tr>
@@ -34,6 +35,7 @@
 				<td><img src="${produit.photo}" class="img-circle"
 					width="150" height="100"></td>
 				<td>${produit.description}</td>
+				<td>${produit.quantite}</td>
 				<td>${produit.prix}</td>
                 <td class="text-center"><a class='btn btn-info btn-xs' href="${pageContext.request.contextPath}/site/admin/supprimerProduit/${produit.id}"><span class="glyphicon glyphicon-edit"></span> Supprimer</a> <a href="${pageContext.request.contextPath}/site/admin/modifierProduit?idP=${produit.id}&idC=${produit.categorie.id}" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Modifier</a></td>
             </tr>

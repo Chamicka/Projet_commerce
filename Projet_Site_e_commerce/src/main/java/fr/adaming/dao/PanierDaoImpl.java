@@ -9,12 +9,16 @@ import org.springframework.stereotype.Repository;
 
 import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Panier;
+import fr.adaming.model.Produit;
 
 @Repository
 public class PanierDaoImpl implements IPanierDao{
 
 	@Autowired
 	private SessionFactory sf;
+	
+	@Autowired
+	private IProduitDao pDao ;
 	
 	
 	/**
@@ -46,6 +50,10 @@ public class PanierDaoImpl implements IPanierDao{
 		} else {
 			lignes = p.getLignesCommande() ;
 			int id = (int) idL ;
+			Produit p_rec = lignes.get(id).getProduit();
+			p_rec.setQuantite(p_rec.getQuantite()+lignes.get(id).getQuantite());
+			pDao.modifierProduit(p_rec);
+			p.getLignesCommande().get(id).setProduit(p_rec);
 			lignes.remove(id);
 			for (int i = id; i<lignes.size(); i++) {
 				lignes.get(i).setId(lignes.get(i).getId()-1);
@@ -62,6 +70,10 @@ public class PanierDaoImpl implements IPanierDao{
 			long lId = (long) index ;
 			p = supprimerLigne(p, lId);
 		} else {
+			Produit p_rec = p.getLignesCommande().get(index).getProduit();
+			p_rec.setQuantite(p_rec.getQuantite()+1);
+			pDao.modifierProduit(p_rec);
+			p.getLignesCommande().get(index).setProduit(p_rec);
 			p.getLignesCommande().get(index).setQuantite(quantite-1);
 		}
 		return p ;

@@ -78,6 +78,7 @@ public class ProduitDaoImpl implements IProduitDao{
 		Session s=sf.getCurrentSession();
 		Produit p_rec = (Produit) s.get(Produit.class, id_prod);
 		LigneCommande lc = new LigneCommande() ;
+		
 		lc.setProduit(p_rec);
 		lc.setQuantite(quantite);
 		lc.calculerPrix();
@@ -90,12 +91,17 @@ public class ProduitDaoImpl implements IProduitDao{
 		}
 		newList.add(lc);
 		panier.setLignesCommande(newList);
+		p_rec.setQuantite(p_rec.getQuantite()-quantite);
+		modifierProduit(p_rec);
 		return panier ;
 	}
 	
 	public Panier ajouterAuPanierPlus(Panier panier, int index) {
 		int quantite = panier.getLignesCommande().get(index).getQuantite();
 		panier.getLignesCommande().get(index).setQuantite(quantite+1);
+		Produit p_rec = panier.getLignesCommande().get(index).getProduit();
+		p_rec.setQuantite(p_rec.getQuantite()-1);
+		modifierProduit(p_rec);
 		return panier ;
 	}
 
