@@ -1,5 +1,7 @@
 package fr.adaming.controllers;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import fr.adaming.model.Admin;
 import fr.adaming.model.Categorie;
+import fr.adaming.model.Client;
 import fr.adaming.model.LigneCommande;
 import fr.adaming.model.Panier;
 import fr.adaming.model.Produit;
 import fr.adaming.service.ICategorieService;
+import fr.adaming.service.IClientService;
 import fr.adaming.service.IPanierService;
 import fr.adaming.service.IProduitService;
 
@@ -62,6 +68,17 @@ public class SiteControllerClient {
 		this.panService = panService;
 	}
 
+	@Autowired
+	private IClientService clService;
+
+	/**
+	 * @param clService
+	 *            the clService to set
+	 */
+	public void setClService(IClientService clService) {
+		this.clService = clService;
+	}
+
 	@ModelAttribute("sPanier")
 	public Panier getPanier(HttpSession session) {
 
@@ -84,6 +101,18 @@ public class SiteControllerClient {
 			return idCat;
 		} else {
 			return (long) session.getAttribute("sIdCat");
+		}
+
+	}
+
+	@ModelAttribute("mClient")
+	public Client getmClient(HttpSession session) {
+
+		if (session.getAttribute("mClient") == null) {
+			session.setAttribute("mClient", null);
+			return null;
+		} else {
+			return (Client) session.getAttribute("mClient");
 		}
 
 	}
@@ -324,4 +353,44 @@ public class SiteControllerClient {
 
 		return "accueilClient";
 	}
+
+	@RequestMapping(value = "/formulaireInscription", method = RequestMethod.GET)
+	public ModelAndView afficherFormInscription(HttpSession session) {
+
+		return new ModelAndView("inscription", "mClient", new Client());
+	}
+
+	@RequestMapping(value = "/enregistrerInscription", method = RequestMethod.POST)
+	public String enregistrerClient(ModelMap model, @ModelAttribute("mClient") Client client, HttpSession session) {
+		System.out.println("dans le controller");
+		System.out.println("client : " + client);
+		if (client.getId() == null) {
+			System.out.println("dans le if");
+			clService.ajouterClient(client);
+		} else {
+			System.out.println("dans le else");
+			clService.modifierClient(client);
+		}
+
+		System.out.println("avant le panier");
+		Panier panier_final = getPanier(session);
+		model.addAttribute("listeLignes", panier_final.getLignesCommande());
+		model.addAttribute("total", panService.calculerTotal(panier_final));
+		session.setAttribute("mClient", client);
+		return "accueilClient";
+	}
+
+	@RequestMapping(value = "/validerCommande", method = RequestMethod.GET)
+	public String validerCommande(ModelMap model, HttpSession session) {
+
+		Panier panier = getPanier(session);
+		int total = panService.calculerTotal(panier);
+		Client client = getmClient(session);
+		model.addAttribute("msg",
+				"La facture pour votre commande pour un total de " + total + "euros vous a bien été envoyée au "
+						+ client.getAdresse() + ". Merci et à très vite monsieur ou madame " + client.getNom());
+		session.setAttribute("sPanier", null);
+		return "accueilClient";
+	}
+
 }

@@ -12,8 +12,9 @@
 <body>
 
 <h1>Informations personnelles</h1>
-	<form:form action="" method="POST" modelAttribute="">
+	<form:form action="enregistrerInscription" method="POST" modelAttribute="mClient">
 		<form:input type="hidden" path="id" />
+		<form:input type="hidden" path="roles" value="ROLE_CLIENT" />
 		<br />
 Nom: <form:input path="nom" />
 Adresse: <form:input path="adresse" />

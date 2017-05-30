@@ -62,7 +62,7 @@
 		<security:authentication-provider>
 			<security:jdbc-user-service
 				data-source-ref="dataSourceBean2"
-				users-by-username-query="select mail,password,activated from clients where mail=?"
+				users-by-username-query="select mail,password from clients where mail=?"
 				authorities-by-username-query="select cl.mail,r.rolename from clients cl, roles r where cl.id_cl=r.client_id and cl.mail=?" />
 		
 		</security:authentication-provider>

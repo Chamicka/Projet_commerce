@@ -40,6 +40,7 @@
 				</tr>
 			</c:forEach>
 		</table>
+		
 		<br />
 		<table class="table table-hover" style="width: 100%; text-align: center" >
 			<tr>
@@ -49,6 +50,9 @@
 				<td>${total}</td>
 			</tr>
 		</table>
+	</div>
+	<div style="width: 400px; float:right"><a class="btn btn-info" href="${pageContext.request.contextPath}/site/client/validerCommande" role="button">Valider la commande</a>
+	<h3>${msg}</h3>
 	</div>
 	<div>
 		<c:forEach var="categorie" items="${listeCats}">

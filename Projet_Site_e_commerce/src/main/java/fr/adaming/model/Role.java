@@ -24,6 +24,11 @@ public class Role implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="admin_id", referencedColumnName="id_ad")
 	private Admin admin ;
+	
+	@ManyToOne
+	@JoinColumn(name="client_id", referencedColumnName="id_cl")
+	private Client client ;
+	
 
 	/**
 	 * 
@@ -52,6 +57,21 @@ public class Role implements Serializable {
 		this.id = id;
 		this.rolename = rolename;
 		this.admin = admin;
+	}
+
+	
+	/**
+	 * @param id
+	 * @param rolename
+	 * @param admin
+	 * @param client
+	 */
+	public Role(int id, String rolename, Admin admin, Client client) {
+		super();
+		this.id = id;
+		this.rolename = rolename;
+		this.admin = admin;
+		this.client = client;
 	}
 
 	/**
@@ -94,6 +114,21 @@ public class Role implements Serializable {
 	 */
 	public void setAdmin(Admin admin) {
 		this.admin = admin;
+	}
+	
+
+	/**
+	 * @return the client
+	 */
+	public Client getClient() {
+		return client;
+	}
+
+	/**
+	 * @param client the client to set
+	 */
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
 	/* (non-Javadoc)

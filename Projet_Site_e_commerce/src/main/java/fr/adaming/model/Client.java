@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -23,6 +25,9 @@ public class Client implements Serializable {
 	private String adresse ;
 	private String mail ;
 	private String tel ;
+	
+	@OneToMany(mappedBy="client")
+	private List<Role> roles ;
 	
 	@OneToMany(mappedBy="client")
 	private List<Commande> listeCommandes ;
@@ -65,6 +70,31 @@ public class Client implements Serializable {
 		this.adresse = adresse;
 		this.mail = mail;
 		this.tel = tel;
+		this.listeCommandes = listeCommandes;
+	}
+	
+	
+
+	
+
+	/**
+	 * @param id
+	 * @param nom
+	 * @param adresse
+	 * @param mail
+	 * @param tel
+	 * @param roles
+	 * @param listeCommandes
+	 */
+	public Client(Long id, String nom, String adresse, String mail, String tel, List<Role> roles,
+			List<Commande> listeCommandes) {
+		super();
+		this.id = id;
+		this.nom = nom;
+		this.adresse = adresse;
+		this.mail = mail;
+		this.tel = tel;
+		this.roles = roles;
 		this.listeCommandes = listeCommandes;
 	}
 
@@ -150,6 +180,24 @@ public class Client implements Serializable {
 	 */
 	public void setListeCommandes(List<Commande> listeCommandes) {
 		this.listeCommandes = listeCommandes;
+	}
+	
+	
+
+	
+
+	/**
+	 * @return the roles
+	 */
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	/**
+	 * @param roles the roles to set
+	 */
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 	/* (non-Javadoc)

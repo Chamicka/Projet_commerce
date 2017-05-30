@@ -44,6 +44,10 @@
 					</ul>
 					<ul class="nav navbar-nav navbar-right hidden-xs">
 						<a type="button" class="navbar-btn btn btn-gradient-blue"
+							am-latosans="bold" href="${pageContext.request.contextPath}/site/formulaireInscription">Inscription</a>
+					</ul>
+					<ul class="nav navbar-nav navbar-right hidden-xs">
+						<a type="button" class="navbar-btn btn btn-gradient-blue"
 							am-latosans="bold" href="${pageContext.request.contextPath}/site/admin/categories">Admin</a>
 					</ul>
 				</div>
