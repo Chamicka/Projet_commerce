@@ -105,4 +105,12 @@ public class ProduitDaoImpl implements IProduitDao{
 		return panier ;
 	}
 
+	@Override
+	public Produit getByKeyWord(Produit p) {
+		Session s=sf.getCurrentSession();
+		String rec="from Produit p where p.designation=:pDes";
+		
+		return null;
+	}
+
 }
