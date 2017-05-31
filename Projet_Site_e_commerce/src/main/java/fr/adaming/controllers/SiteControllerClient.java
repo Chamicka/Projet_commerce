@@ -1,7 +1,5 @@
 package fr.adaming.controllers;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
 import java.util.List;
 import java.util.Map;
 
@@ -131,7 +129,7 @@ public class SiteControllerClient {
 		Panier panier = getPanier(session);
 		model.addAttribute("listeLignes", panier.getLignesCommande());
 		model.addAttribute("total", panService.calculerTotal(panier));
-
+		model.addAttribute("word", new String());
 		return "accueilClient";
 	}
 
@@ -149,7 +147,7 @@ public class SiteControllerClient {
 		Panier panier = getPanier(session);
 		model.addAttribute("listeLignes", panier.getLignesCommande());
 		model.addAttribute("total", panService.calculerTotal(panier));
-
+		model.addAttribute("word", new String());
 		return "produitsClient";
 	}
 
@@ -158,6 +156,7 @@ public class SiteControllerClient {
 
 		List<Categorie> listeCat = cService.getAllCategories();
 		model.addAttribute("listeCats", listeCat);
+		model.addAttribute("word", new String());
 		return "accueilClient";
 	}
 
@@ -176,6 +175,7 @@ public class SiteControllerClient {
 				List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(getIdCat(session)));
 				model.addAttribute("listeProds", listeProd);
 			}
+			model.addAttribute("word", new String());
 			return "produitsClient";
 		} else {
 			// ajouter au panier
@@ -214,6 +214,7 @@ public class SiteControllerClient {
 				List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(getIdCat(session)));
 				model.addAttribute("listeProds", listeProd);
 			}
+			model.addAttribute("word", new String());
 			return "produitsClient";
 		}
 
@@ -232,6 +233,7 @@ public class SiteControllerClient {
 			session.setAttribute("sPanier", getPanier(session));
 			model.addAttribute("listeLignes", getPanier(session).getLignesCommande());
 			model.addAttribute("total", panService.calculerTotal(getPanier(session)));
+			model.addAttribute("word", new String());
 			return "produitsClient";
 		} else {
 
@@ -264,7 +266,7 @@ public class SiteControllerClient {
 			Panier panier_final = getPanier(session);
 			model.addAttribute("listeLignes", panier_final.getLignesCommande());
 			model.addAttribute("total", panService.calculerTotal(panier_final));
-
+			model.addAttribute("word", new String());
 			return "accueilClient";
 		}
 	}
@@ -283,7 +285,7 @@ public class SiteControllerClient {
 		model.addAttribute("idCat", getIdCat(session));
 		List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(getIdCat(session)));
 		model.addAttribute("listeProds", listeProd);
-
+		model.addAttribute("word", new String());
 		return "produitsClient";
 	}
 
@@ -308,7 +310,7 @@ public class SiteControllerClient {
 		model.addAttribute("idCat", getIdCat(session));
 		List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(getIdCat(session)));
 		model.addAttribute("listeProds", listeProd);
-
+		model.addAttribute("word", new String());
 		return "produitsClient";
 	}
 
@@ -326,7 +328,7 @@ public class SiteControllerClient {
 		Panier panier = getPanier(session);
 		model.addAttribute("listeLignes", panier.getLignesCommande());
 		model.addAttribute("total", panService.calculerTotal(panier));
-
+		model.addAttribute("word", new String());
 		return "accueilClient";
 	}
 
@@ -350,9 +352,10 @@ public class SiteControllerClient {
 		Panier panier_final = getPanier(session);
 		model.addAttribute("listeLignes", panier_final.getLignesCommande());
 		model.addAttribute("total", panService.calculerTotal(panier_final));
-
+		model.addAttribute("word", new String());
 		return "accueilClient";
 	}
+
 
 	@RequestMapping(value = "/formulaireInscription", method = RequestMethod.GET)
 	public ModelAndView afficherFormInscription(HttpSession session) {
@@ -392,5 +395,17 @@ public class SiteControllerClient {
 		session.setAttribute("sPanier", null);
 		return "accueilClient";
 	}
+
+
+	
+	@RequestMapping(value="trouverByKeyWord", method=RequestMethod.POST)
+	public String trouverByKeyWord(ModelMap model, @ModelAttribute("word") String word, HttpSession session){
+		model.addAttribute("listeProds", pService.getByKeyWord(word));
+		Panier panier = getPanier(session);
+		model.addAttribute("listeLignes", panier.getLignesCommande());
+		model.addAttribute("total", panService.calculerTotal(panier));
+		return "produitsClient";
+	}
+	
 
 }

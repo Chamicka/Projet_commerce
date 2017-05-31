@@ -105,4 +105,14 @@ public class ProduitDaoImpl implements IProduitDao{
 		return panier ;
 	}
 
+	@Override
+	public List<Produit> getByKeyWord(String mot) {
+		Session s=sf.getCurrentSession();
+		String rec="from Produit p where p.designation LIKE :pDes or p.description LIKE :pDes";
+		Query query=s.createQuery(rec);
+		query.setParameter("pDes", '%'+mot+'%');
+		
+		return query.list();
+	}
+
 }

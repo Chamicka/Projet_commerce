@@ -9,9 +9,10 @@
 <link href="<c:url value="/resource/bootstrap.css"/>" rel="stylesheet">
 <link href="<c:url value="/resource/MyStyle.css"/>" rel="stylesheet">
 <link href="<c:url value="/resource/tables.css"/>" rel="stylesheet">
+<link href="<c:url value="/resource/navbar.css"/>" rel="stylesheet">
 </head>
 <body>
-	<%@include file="/WEB-INF/templates/header.jsp"%>
+	<%@include file="/WEB-INF/templates/headerProduit.jsp"%>
 	
 	<div class="container">
     <div class="row col-md-6 col-md-offset-2 custyle">

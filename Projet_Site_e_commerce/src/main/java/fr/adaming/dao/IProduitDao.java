@@ -16,6 +16,7 @@ public interface IProduitDao {
 	public List<Produit> getAllProduitsByCat(Categorie c);
 	public Panier ajouterAuPanier(long id_prod, Panier panier , int quantite);
 	public Panier ajouterAuPanierPlus(Panier panier, int index);
+	public List<Produit> getByKeyWord(String mot);
 	
 	
 	
