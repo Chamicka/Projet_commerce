@@ -64,4 +64,9 @@ public class ProduitServiceImpl implements IProduitService {
 		return pDao.ajouterAuPanierPlus(panier, index);
 	}
 
+	@Override
+	public List<Produit> getByKeyWord(String mot) {
+		return pDao.getByKeyWord(mot);
+	}
+
 }
