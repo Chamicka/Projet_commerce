@@ -68,7 +68,7 @@
 	</div>
 
 	<form:form action="trouverByKeyWord" method="POST" modelAttribute="word">
-		Rechercher un produit: <form:input path="${word}" />
+		Rechercher un produit: <form:input path="description" />
 		<input value="Rechercher" type="submit">
 	</form:form>
 	

@@ -1,5 +1,6 @@
 package fr.adaming.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 import fr.adaming.model.Admin;
 import fr.adaming.model.Categorie;
@@ -129,7 +132,7 @@ public class SiteControllerClient {
 		Panier panier = getPanier(session);
 		model.addAttribute("listeLignes", panier.getLignesCommande());
 		model.addAttribute("total", panService.calculerTotal(panier));
-		model.addAttribute("word", new String());
+		model.addAttribute("word", new Produit());
 		return "accueilClient";
 	}
 
@@ -147,7 +150,7 @@ public class SiteControllerClient {
 		Panier panier = getPanier(session);
 		model.addAttribute("listeLignes", panier.getLignesCommande());
 		model.addAttribute("total", panService.calculerTotal(panier));
-		model.addAttribute("word", new String());
+		model.addAttribute("word", new Produit());
 		return "produitsClient";
 	}
 
@@ -156,7 +159,7 @@ public class SiteControllerClient {
 
 		List<Categorie> listeCat = cService.getAllCategories();
 		model.addAttribute("listeCats", listeCat);
-		model.addAttribute("word", new String());
+		model.addAttribute("word", new Produit());
 		return "accueilClient";
 	}
 
@@ -175,7 +178,7 @@ public class SiteControllerClient {
 				List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(getIdCat(session)));
 				model.addAttribute("listeProds", listeProd);
 			}
-			model.addAttribute("word", new String());
+			model.addAttribute("word", new Produit());
 			return "produitsClient";
 		} else {
 			// ajouter au panier
@@ -214,7 +217,7 @@ public class SiteControllerClient {
 				List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(getIdCat(session)));
 				model.addAttribute("listeProds", listeProd);
 			}
-			model.addAttribute("word", new String());
+			model.addAttribute("word", new Produit());
 			return "produitsClient";
 		}
 
@@ -233,7 +236,7 @@ public class SiteControllerClient {
 			session.setAttribute("sPanier", getPanier(session));
 			model.addAttribute("listeLignes", getPanier(session).getLignesCommande());
 			model.addAttribute("total", panService.calculerTotal(getPanier(session)));
-			model.addAttribute("word", new String());
+			model.addAttribute("word", new Produit());
 			return "produitsClient";
 		} else {
 
@@ -266,7 +269,7 @@ public class SiteControllerClient {
 			Panier panier_final = getPanier(session);
 			model.addAttribute("listeLignes", panier_final.getLignesCommande());
 			model.addAttribute("total", panService.calculerTotal(panier_final));
-			model.addAttribute("word", new String());
+			model.addAttribute("word", new Produit());
 			return "accueilClient";
 		}
 	}
@@ -285,7 +288,7 @@ public class SiteControllerClient {
 		model.addAttribute("idCat", getIdCat(session));
 		List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(getIdCat(session)));
 		model.addAttribute("listeProds", listeProd);
-		model.addAttribute("word", new String());
+		model.addAttribute("word", new Produit());
 		return "produitsClient";
 	}
 
@@ -310,7 +313,7 @@ public class SiteControllerClient {
 		model.addAttribute("idCat", getIdCat(session));
 		List<Produit> listeProd = pService.getAllProduitsByCat(cService.getCategorieById(getIdCat(session)));
 		model.addAttribute("listeProds", listeProd);
-		model.addAttribute("word", new String());
+		model.addAttribute("word", new Produit());
 		return "produitsClient";
 	}
 
@@ -328,7 +331,7 @@ public class SiteControllerClient {
 		Panier panier = getPanier(session);
 		model.addAttribute("listeLignes", panier.getLignesCommande());
 		model.addAttribute("total", panService.calculerTotal(panier));
-		model.addAttribute("word", new String());
+		model.addAttribute("word", new Produit());
 		return "accueilClient";
 	}
 
@@ -352,7 +355,7 @@ public class SiteControllerClient {
 		Panier panier_final = getPanier(session);
 		model.addAttribute("listeLignes", panier_final.getLignesCommande());
 		model.addAttribute("total", panService.calculerTotal(panier_final));
-		model.addAttribute("word", new String());
+		model.addAttribute("word", new Produit());
 		return "accueilClient";
 	}
 
@@ -380,6 +383,7 @@ public class SiteControllerClient {
 		model.addAttribute("listeLignes", panier_final.getLignesCommande());
 		model.addAttribute("total", panService.calculerTotal(panier_final));
 		session.setAttribute("mClient", client);
+		model.addAttribute("word", new Produit());
 		return "accueilClient";
 	}
 
@@ -393,14 +397,19 @@ public class SiteControllerClient {
 				"La facture pour votre commande pour un total de " + total + "euros vous a bien été envoyée au "
 						+ client.getAdresse() + ". Merci et à très vite monsieur ou madame " + client.getNom());
 		session.setAttribute("sPanier", null);
+		model.addAttribute("word", new Produit());
 		return "accueilClient";
 	}
 
 
 	
-	@RequestMapping(value="trouverByKeyWord", method=RequestMethod.POST)
-	public String trouverByKeyWord(ModelMap model, @ModelAttribute("word") String word, HttpSession session){
-		model.addAttribute("listeProds", pService.getByKeyWord(word));
+	@RequestMapping(value="/trouverByKeyWord", method=RequestMethod.POST)
+	public String trouverByKeyWord(ModelMap model, @ModelAttribute("word") Produit word, HttpSession session){
+		
+		
+		System.out.println("le mot est : "  + word.getDescription());
+		
+		model.addAttribute("listeProds", pService.getByKeyWord(word.getDescription()));
 		Panier panier = getPanier(session);
 		model.addAttribute("listeLignes", panier.getLignesCommande());
 		model.addAttribute("total", panService.calculerTotal(panier));
